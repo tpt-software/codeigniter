@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "fea055b2-9b7c-4d73-ae1f-3070029a23e5",
+		"name": "video",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14158295"
+	},
+	"item": [
+		{
+			"name": "Get list of available servers for current user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/getserver?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"getserver"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "API Key of the user, get it from Member Center -> Account Settings"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get server result",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/getserver?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getserver"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:16:25 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // Success or Error \n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"12\": \"Server 1\" // id and name of the server\n        },\n        {\n            \"18\": \"Server 2\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Getvideoclass",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/getvideoclass?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"getvideoclass"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "User's API Key, obtained from Member Center -> Account Settings"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get video class result",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/getvideoclass?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getvideoclass"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:16:46 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "121"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // Success or Error \n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"15\": \"Videos\" // The ID of the video class and the name of the video class, on the web are \"Video classification \"\n        },\n        {\n            \"16\": \"Short videos\"\n        },\n        {\n            \"17\": \"18+\"\n        },\n        {\n            \"18\": \"Hentai\"\n        },\n        {\n            \"19\": \"Others\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get my class",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/getmyclass?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"getmyclass"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "User's API Key, obtained from Member Center -> Account Settings"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get my class",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/getmyclass?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getmyclass"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 14:34:08 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // success hoặc error \n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"17\": \"Video\"  // The ID of my class (on the web is \"Private classification\") and the name of My class ID\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "My video",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/myvideo?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"myvideo"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "User's API Key, obtained from Member Center -> Account Settings"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "My video result",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/myvideo?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"myvideo"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:18:09 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "677"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // Status: Success or Error\n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"id\": \"89275\", // ID of the video\n            \"vid\": \"6fdbc5259feb\", \n            \"vip\": \"0\", \n            \"name\": \"201905\", // File name MP4\n            \"cid\": \"15\", // video class id\n            \"mycid\": \"17\", // my class id\n            \"hits\": \"0\", // Views\n            \"duration\": \"4.178333\",  // Durations\n            \"size\": \"222502\", // Capacity\n            \"uid\": \"225\", // User ID uploaded the video\n            \"filepath\": \"C:/xampp/htdocs/source/video//202404/202404222318012d49c.mp4\", // File path of MP4 file\n            \"zt\": \"0\", \n            \"fid\": \"12\", // Server ID\n            \"addtime\": \"1713799081\",\n            \"zmtime\": \"0\"\n        },\n        {\n            \"id\": \"89029\",\n            \"vid\": \"eac1dd768496\",\n            \"vip\": \"0\",\n            \"name\": \"sample_12dsfsdf80x720_surfing_with_audio\",\n            \"cid\": \"15\",\n            \"mycid\": \"0\",\n            \"hits\": \"148\",\n            \"duration\": \"183.057875\",\n            \"size\": \"71753110\",\n            \"uid\": \"225\",\n            \"filepath\": \"D:\\\\xampp\\\\domains\\\\source.com\\\\video//202403/20240311073541e81c9.mp4\",\n            \"zt\": \"2\",\n            \"fid\": \"12\",\n            \"addtime\": \"1710131741\",\n            \"zmtime\": \"1710131743\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Upload",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "video",
+							"type": "file",
+							"src": "/C:/Users/Administrator/Downloads/201905.mp4"
+						},
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "User's API Key, obtained from Member Center -> Account Settings",
+							"type": "text"
+						},
+						{
+							"key": "cid",
+							"value": "15",
+							"description": "Video class ID , obtained from API get video class /api/getvideoclass",
+							"type": "text"
+						},
+						{
+							"key": "fid",
+							"value": "12",
+							"description": "Server ID , obtained from API get video class /api/getserver",
+							"type": "text"
+						},
+						{
+							"key": "mycid",
+							"value": "17",
+							"description": "My class ID , obtained from API get my class /api/getmyclass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://source.build:8080/api/upload",
+					"protocol": "http",
+					"host": [
+						"source",
+						"build"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Upload  video result",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Downloads/201905.mp4"
+								},
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL",
+									"type": "text"
+								},
+								{
+									"key": "cid",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "fid",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "mycid",
+									"value": "17",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://source.build:8080/api/upload",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"upload"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:28:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // Success or Error\n    \"msg\": \"Video upload complete\",\n    \"did\": 89276 // ID of the uploaded video\n}"
+				}
+			]
+		}
+	]
+}

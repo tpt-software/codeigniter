@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "fea055b2-9b7c-4d73-ae1f-3070029a23e5",
+		"name": "video",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14158295"
+	},
+	"item": [
+		{
+			"name": "get danh sách server available cho user hiện tại",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/getserver?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"getserver"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "apikey của user, lấy ở Member Center -> Account Setting"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get server result",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/getserver?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getserver"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:16:25 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // success hoặc error \n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"12\": \"Server 1\" // id và tên của server\n        },\n        {\n            \"18\": \"Server 2\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "getvideoclass",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/getvideoclass?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"getvideoclass"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "apikey của user, lấy ở Member Center -> Account Setting"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get video class result",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/getvideoclass?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getvideoclass"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:16:46 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "121"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // success hoặc error \n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"15\": \"Videos\" // id của video class và tên của video class , trên web là \"Video classification \"\n        },\n        {\n            \"16\": \"Short videos\"\n        },\n        {\n            \"17\": \"18+\"\n        },\n        {\n            \"18\": \"Hentai\"\n        },\n        {\n            \"19\": \"Others\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "get my class",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/getmyclass?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"getmyclass"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "apikey của user, lấy ở Member Center -> Account Setting"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get my class",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/getmyclass?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"getmyclass"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 14:34:08 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // success hoặc error \n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"17\": \"Video\"  // id của my class (trên web là \"Private classification\") và  tên của my class id\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "my video",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/myvideo?apikey={{apikey}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"myvideo"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "apikey của user, lấy ở Member Center -> Account Setting"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "my video result",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://source.build:8080/api/myvideo?apikey=vBk7795OrP5fre5LBshdT5pVL",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"myvideo"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:18:09 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "677"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // status : success hoặc error\n    \"msg\": \"\",\n    \"data\": [\n        {\n            \"id\": \"89275\", // id của video\n            \"vid\": \"6fdbc5259feb\", \n            \"vip\": \"0\", \n            \"name\": \"201905\", // tên file mp4\n            \"cid\": \"15\", // video class id\n            \"mycid\": \"17\", // my class id\n            \"hits\": \"0\", // số lượt truy cập\n            \"duration\": \"4.178333\",  // chiều dài video\n            \"size\": \"222502\", // dung lượng video\n            \"uid\": \"225\", // user id đã upload video\n            \"filepath\": \"C:/xampp/htdocs/source/video/data//202404/202404222318012d49c.mp4\", // file path của file mp4\n            \"zt\": \"0\", \n            \"fid\": \"12\", // server id\n            \"addtime\": \"1713799081\",\n            \"zmtime\": \"0\"\n        },\n        {\n            \"id\": \"89029\",\n            \"vid\": \"eac1dd768496\",\n            \"vip\": \"0\",\n            \"name\": \"sample_12dsfsdf80x720_surfing_with_audio\",\n            \"cid\": \"15\",\n            \"mycid\": \"0\",\n            \"hits\": \"148\",\n            \"duration\": \"183.057875\",\n            \"size\": \"71753110\",\n            \"uid\": \"225\",\n            \"filepath\": \"D:\\\\OSPanel\\\\domains\\\\vip.14412882.com\\\\video/data//202403/20240311073541e81c9.mp4\",\n            \"zt\": \"2\",\n            \"fid\": \"12\",\n            \"addtime\": \"1710131741\",\n            \"zmtime\": \"1710131743\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "upload",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "video",
+							"type": "file",
+							"src": "/C:/Users/Administrator/Downloads/201905.mp4"
+						},
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"description": "apikey của user, lấy ở Member Center -> Account Setting",
+							"type": "text"
+						},
+						{
+							"key": "cid",
+							"value": "15",
+							"description": "video class id , lấy ở api get video class /api/getvideoclass",
+							"type": "text"
+						},
+						{
+							"key": "fid",
+							"value": "12",
+							"description": "server id , lấy ở api get video class /api/getserver",
+							"type": "text"
+						},
+						{
+							"key": "mycid",
+							"value": "17",
+							"description": "my class id , lấy ở api get my class /api/getmyclass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://source.build:8080/api/upload",
+					"protocol": "http",
+					"host": [
+						"source",
+						"build"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "upload  video result",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Downloads/201905.mp4"
+								},
+								{
+									"key": "apikey",
+									"value": "vBk7795OrP5fre5LBshdT5pVL",
+									"type": "text"
+								},
+								{
+									"key": "cid",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "fid",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "mycid",
+									"value": "17",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://source.build:8080/api/upload",
+							"protocol": "http",
+							"host": [
+								"source",
+								"build"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"upload"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 22 Apr 2024 15:28:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.33 (Win32) OpenSSL/1.0.2n PHP/5.6.35"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/5.6.35"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\", // success hoặc error\n    \"msg\": \"Video upload complete\",\n    \"did\": 89276 // id của video đã  upload\n}"
+				}
+			]
+		}
+	]
+}

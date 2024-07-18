@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<language>
+		<adCountdown>[$second]</adCountdown><!--Countdown to end of ad playback-->
+		<skipDelay>[$second]</skipDelay>
+		<buttonOver>
+			<play>Click to play</play>
+			<pause>Pause</pause>
+			<mute>Mute</mute>
+			<escMute>Restore volume</escMute>
+			<full>Full screen</full>
+			<escFull>Exit Full Screen</escFull>
+			<previousPage>Last episode</previousPage>
+			<nextPage>Next episode</nextPage>
+			<definition>Click to select resolution</definition>
+		</buttonOver>
+		<volumeSliderOver>
+			Volume: [$volume]%
+		</volumeSliderOver>
+		<buffer>[$percentage]%</buffer>
+		<timeSliderOver><!--The time format displayed by the mouse over the progress bar-->
+			[$timeh]:[$timei]:[$times]
+		</timeSliderOver>
+		<liveAndVod>
+			[$timeh]:[$timei]:[$times]
+		</liveAndVod>
+		<live>
+			Live [$liveTimeY]-[$liveTimem]-[$liveTimed] [$liveTimeh]:[$liveTimei]:[$liveTimes]
+		</live>
+		<m3u8Definition>
+			<name>Fluent</name>
+			<name>Low definition</name>
+			<name>SD</name>
+			<name>HD</name>
+			<name>Ultra-HD</name>
+			<name>Blu ray</name>
+			<name>Unknown</name>
+		</m3u8Definition>
+		<error>
+			<cannotFindUrl>Video URL does not exist</cannotFindUrl>
+			<streamNotFound>Failed to load</streamNotFound>
+			<formatError>Wrong video format</formatError>
+		</error>
+		<definition>Automatic</definition>
+	</language>

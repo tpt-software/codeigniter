@@ -1,0 +1,40 @@
+.th-header {
+   position: relative;
+   display: flex;
+   justify-content: center;
+}
+
+.th-header span:last-child {
+   margin-left: 5cgcg5px;
+}
+
+.container-sort {
+   position: absolute;
+   right: 0;
+   display: flex; /* Sử dụng flexbox để căn chỉnh các thẻ */
+   flex-direction: column; /* Xếp các thẻ theo chiều dọc */
+   align-items: center; /* Canh giữa các thẻ */
+   height: 100%; /* Đảm bảo chiều cao của container */
+}
+
+.container-sort i {
+   margin-bottom: -10px; /* Điều chỉnh khoảng cách giữa các thẻ */
+   display: block;
+}
+
+.header-content {
+   display: flex; /* Sử dụng flexbox để căn chỉnh các thành phần */
+   align-items: center; /* Canh giữa các thành phần theo chiều dọc */
+}
+
+/* Định dạng cho biểu tượng khi đang được chọn */
+.container-sort i.active {
+   font-weight: bold;
+   color: rgb(64, 159, 253); /* Đổi màu sắc tùy thuộc vào màu nền của thẻ */
+}
+
+/* Định dạng cho biểu tượng khi không được chọn */
+.container-sort i:not(.active) {
+   font-weight: normal;
+   color: #ccc; /* Màu nhạt */
+}

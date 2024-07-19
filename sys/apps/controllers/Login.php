@@ -64,6 +64,7 @@ class Login extends CI_Controller {
         $row = $this->csdb->get_row('user','*',array('name'=>$name));
         if($row->pass != md5($pass)) getjson('Incorrect password');
 		if($row->zt > 0) getjson('The account has not been reviewed, please contact the webmaster for review');
+		if($row->is_verify == 0) getjson('Please confirm email before login!');
         
         if(empty($otp)){
             //Send otp after login
@@ -73,7 +74,7 @@ class Login extends CI_Controller {
                 
                 // save otp
                 $data = array(
-                    'otp' => $otp,
+                    'token' => $otp,
                 );
                 $this->csdb->get_update("user", array('id' => $row->id), $data);
 
@@ -96,16 +97,17 @@ class Login extends CI_Controller {
             $row = $this->csdb->get_row('user','*',array('name'=>$name));
 
             // return mess if incorrect
-            if ($row->otp !== $otp) {
-
-                getjson('Incorrect OTP');
-            }else{
-
+            if ($row->token == $otp && strlen($row->token) == 6 ) {
+                
                 // delete otp after confirm
                 $data = array(
-                    'otp' => '',
+                    'token' => '',
                 );
                 $this->csdb->get_update("user", array('id' => $row->id), $data);
+
+            }else{
+                
+                getjson('Incorrect OTP');
             }
         }
         if($remember){

@@ -27,8 +27,12 @@ layui.use(['element','form','layer'], function(){
             });
             setTimeout(function(){
                 window.location.href = data.url;
-            }, 1500);
-        } else {
+            }, 1);
+        }else if(data.code == 2) {
+            layer.msg(data.msg, { icon: 1 });
+			document.getElementById('loginButton').innerHTML = 'Login';
+    		document.getElementById('otpField').disabled = false;
+        }else {
             layer.msg(data.msg, { icon: 2 });
         }
         layer.close(index);

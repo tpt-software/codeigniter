@@ -11,11 +11,17 @@ class Reg extends CI_Controller {
         $this->load->view('reg.tpl');
 	}
 
+        public function success(){
+                $this->load->view('confirm.tpl');
+        }
+
 	public function save(){
                 $name = $this->input->post('name',true);
                 $pass = $this->input->post('pass',true);
                 $repass = $this->input->post('repass',true);
                 $email = $this->input->post('email',true);
+                $is_notification = $this->input->post('is_notification',true);
+
                 // $code = $this->input->post('code',true);
                 // if(empty($name) || empty($pass) || empty($email) || empty($code)){
                 // 	getjson('Incomplete information');
@@ -26,6 +32,7 @@ class Reg extends CI_Controller {
                 if($pass != $repass){
                         getjson('The two passwords do not match');
                 }
+
                 $row = $this->csdb->get_row('user','id',array('name'=>$name));
                 if($row) getjson('Account has been registered');
                 $row = $this->csdb->get_row('user','id',array('email'=>$email));
@@ -40,7 +47,9 @@ class Reg extends CI_Controller {
                 $add['zt'] = Web_Reg;
                 $add['addtime'] = time();
                 $add['token'] = $token;
+                $add['is_notification'] = $is_notification ? 1 : 0;
                 $res = $this->csdb->get_insert('user',$add);
+                
                 if(!$res) getjson('Registration failed, try again later');
                 
                 //No review
@@ -50,7 +59,8 @@ class Reg extends CI_Controller {
                         $this->email->from($this->email->smtp_user, 'Admin');
                         $this->email->to($email);
                         $this->email->subject('Confirm email');
-                        $this->email->message(sprintf('Link verify : %s', $_SERVER['HTTP_HOST'].'/reg/confirm?token='.$token));
+                        $this->email->message(sprintf('Please click the following link to verify your account:
+                                <a href="%s/reg/confirm?token=%s">%s/reg/confirm?token=%s</a>', $_SERVER['HTTP_HOST'], $token, $_SERVER['HTTP_HOST'], $token));
                         $this->email->send(); 
                         getjson(array('msg'=>'We sent email for you, Please confirm before login','url'=>links('login')),1);
                         
@@ -88,7 +98,6 @@ class Reg extends CI_Controller {
                         $this->csdb->get_insert('user_log',$add);
 
                         
-
                         if (empty($row->apikey)) {
                         $this->csdb->get_update('user',$row->id,array('apikey'=> $this->generateRandomString(29)));
                         }
@@ -102,7 +111,7 @@ class Reg extends CI_Controller {
                         $this->csdb->get_update('user',$row->id,array('token'=> ''));
                         $this->csdb->get_update('user',$row->id,array('is_verify'=> 1));
                         
-                        header("location:".links('vod'));
+                        $this->load->view('confirm.tpl');
                 }else{
                         header("location:".links('login'));
                 }

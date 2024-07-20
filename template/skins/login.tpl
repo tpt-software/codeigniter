@@ -68,6 +68,15 @@
         color: smoke;
         vertical-align: middle;
         }
+
+        .layui-form-checkbox {
+            height : 25px !important;
+            width : 25px !important;
+            padding-right : 0px !important;
+        }
+        .layui-form-checkbox i {
+            right: -5px !important;
+        }
     </style>
     <meta charset=utf-8>
     <title>

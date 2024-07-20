@@ -45,6 +45,25 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+        .remember_me {
+        margin-left: 120px; 
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        }
+
+        .remember_me input[type="checkbox"] {
+        margin-right: 8px !important;
+        width: 14px !important;
+        height: 14px !important;
+        accent-color: #007bff !important;
+        }
+
+        .remember_me label {
+        font-size: 14px;
+        color: smoke;
+        vertical-align: middle;
+        }
     </style>
     <meta charset=utf-8>
     <title>
@@ -109,11 +128,9 @@
                             <img src="<?=links('code')?>" onclick="this.src=this.src+'?'" class="verifyimg">
                         </div>
                     </div> -->
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
+                    <div class="remember_me">
                             <input type="checkbox" id="remember_me" name="remember_me">
                             <label for="remember_me">Remember Me</label>
-                        </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">

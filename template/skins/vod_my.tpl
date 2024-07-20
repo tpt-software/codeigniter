@@ -320,7 +320,7 @@ $khoa = "zino_deptrai";
         <div class="modal-body">
 
             <div style="padding-top:5px;">
-                <h5>Player address</h5>
+                <h5>List Folder</h5>
                 
 				<div class="input-group" id="copy_iframe_backup">
                     <input type="text" class="form-control" readonly>
@@ -376,7 +376,7 @@ $khoa = "zino_deptrai";
                     foreach($folders as $folder){
                         echo'
 				        <div class="input-group" id="copy_iframe_backup">
-                            <input type="checkbox" name="folder_id" value="'.$folder->id.'">
+                            <input type="radio" class="video-checkbox" title="'.$folder->name.'" name="folder_id" value="'.$folder->id.'">
                             <i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
                             <span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">'.$folder->name.'</span>
                         </div>';

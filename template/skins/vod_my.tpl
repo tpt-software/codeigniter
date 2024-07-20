@@ -230,12 +230,18 @@ $khoa = "zino_deptrai";
                                                             }
                                                             $icon = '';
                                                             if($row->type == 'video'){
-                                                                $icon = '<i class="fa fa-video-camera fa-2" aria-hidden="true" style="color: #FFD43B;"></i>';
+                                                                $icon = '';
                                                                 $link = links('play','index',$row->vid);
                                                                 $linkEdit = links('vod','edit',$row->vid);
                                                                 $linkDel = links('vod','del',$row->id);
                                                                 $thumbImg =  $thumbImg;
-                                                                 $href = "javascript:getajax('".$linkDel."', 'del')";
+                                                                $href = "javascript:getajax('".$linkDel."', 'del')";
+                                                                $editVideo = ' <a onclick="n='.$k.';get_mode(\'fetch\');" href="#longshare" data-toggle="modal" class="mt-clipboard btn btn-sm btn-default custom-link-color">
+                                                                    <i class="icon-note"></i> Link
+                                                                </a>
+                                                                <a  href="'.$link.'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">
+                                                                    <i class="fa fa-search"></i> Preview
+                                                                </a>';           
                                                             }else{
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;"></i>';
                                                                 $link = '/folder/index/'. $row->id;
@@ -243,6 +249,7 @@ $khoa = "zino_deptrai";
                                                                 $linkDel = links('folder','del',$row->id);
                                                                 $thumbImg = $icon;
                                                                 $href = "javascript:getajax('" . $linkDel . "', 'del', 'If you delete the Folder, all videos inside will be deleted and cannot be restored')";
+                                                                $editVideo = '';
                                                             }
 
                                                       
@@ -266,13 +273,8 @@ $khoa = "zino_deptrai";
 																<td>'.$row->hits.'</td> 
                                                                 <td id="zm_'.$row->id.'" class="text-primary" style="'.$color.'">'.$zt.'</td>
                                                                 <td>'.date('d-m-Y | H:i:s',$row->addtime).'</td>
-                                                                <td>
-                                                                <a onclick="n='.$k.';get_mode(\'fetch\');" href="#longshare" data-toggle="modal" class="mt-clipboard btn btn-sm btn-default custom-link-color">
-                                                                    <i class="icon-note"></i> Link
-                                                                </a>
-                                                                <a  href="'.$link.'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">
-                                                                    <i class="fa fa-search"></i> Preview
-                                                                </a>
+                                                                <td>'.$editVideo.'
+
                                                                 <a href="'.$linkEdit.'" class="btn btn-sm btn-default custom-edit-color">
                                                                     <i class="fa fa-edit"></i> Edit</a>
                                                                 <a  href="'.$href.';" class="btn btn-sm btn-default custom-delete-color">

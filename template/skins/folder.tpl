@@ -234,7 +234,7 @@ $khoa = "zino_deptrai";
                                                                 $link = links('play','index',$row->vid);
                                                             }else{
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;"></i>';
-                                                                $link = '/folder/index/'. $row->id;
+                                                                $link = '/folders/'. $row->id;
                                                             }
                                                       
 															$html = '

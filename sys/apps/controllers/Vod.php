@@ -30,9 +30,10 @@ class Vod extends CI_Controller
 
             // TODO for test
             $where['uid'] = $user->id;
-            if ($cid > 0)
+            if ($cid > 0){
                   $where['cid'] = $cid;
-
+            }
+            $where = array_merge($where, array('folder_id' => null));
 
             //Quantity per page
             $per_page = 100;
@@ -79,8 +80,9 @@ class Vod extends CI_Controller
                         $sByQuery = $sBy;
                   }
             }
-
-            $data['vod'] = $this->csdb->get_select('vod', '*', $where, $sField . ' ' . $sByQuery, $limit);
+            $data['folders'] = $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id), 'created_at DESC', $limit);
+            $data['vod'] = $this->csdb->get_select('vod', '*, "video" AS type', $where, $sField . ' ' . $sByQuery, $limit);
+            $data['vod'] = array_merge($data['folders'], $data['vod']);
             //$data['vod'] = $this->csdb->get_select('vod','*',$where,'addtime DESC',$limit);
             $ops = $cid > 0 ? $op . '/' . $cid : $op;
             $data['pages'] = get_page($total, $pagejs, $page, 'vod', 'index', $ops);

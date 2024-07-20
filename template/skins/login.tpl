@@ -116,7 +116,7 @@
                         <label class="layui-form-label"></label>
                         <div class="layui-input-block password-container">
                             <input type="text" name="otp" class="password" id="otpField"
-                                placeholder="Otp" oncontextmenu="return false" onpaste="return false" disabled=""/>
+                                placeholder="Otp" oncontextmenu="return false" disabled=""/>
                         </div>
                     </div>
                     <!-- Display secure code (old version)

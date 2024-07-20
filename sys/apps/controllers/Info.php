@@ -73,7 +73,6 @@ class Info extends CI_Controller {
 
 	//Add, modify storage
 	public function save($op='edit'){
-
 		if($op == 'pass'){
 			$pass1 = $this->input->post('pass1',true);
 			$pass2 = $this->input->post('pass2',true);
@@ -87,13 +86,14 @@ class Info extends CI_Controller {
 			$edit['email'] = $this->input->post('email',true);
 			$edit['telegram'] = $this->input->post('telegram',true);
 			$edit['url'] = $this->input->post('url',true);
+			$edit['is_otp'] = $this->input->post('is_otp',true) ? 1 : 0;
 			if(empty($edit['email']) || empty($edit['url']) || empty($edit['telegram'])) getjson('Incomplete data');
 		}
 		if(isset($edit['telegram'])) {
-		if (!preg_match('/^@[\w]+$/', $edit['telegram'])) {
-        getjson('Please enter a valid Telegram username (e.g., @username)');
-    }
-}
+			if (!preg_match('/^@[\w]+$/', $edit['telegram'])) {
+				getjson('Please enter a valid Telegram username (e.g., @username)');
+			}
+		}
 		$this->db->update("user",$edit,array('id'=>$this->cookie->get('user_id')));
 		getjson(array('msg'=>'Modified and updated successfully','url'=>links('info',$op)),1);
 	}

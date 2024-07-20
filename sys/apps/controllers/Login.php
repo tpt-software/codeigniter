@@ -65,7 +65,7 @@ class Login extends CI_Controller {
         if($row->pass != md5($pass)) getjson('Incorrect password');
 		if($row->zt > 0) getjson('The account has not been reviewed, please contact the webmaster for review');
 		if($row->is_verify == 0) getjson('Please confirm email before login!');
-        if ($row->is_otp == 1) {
+        if (Is_OTP == 1 && $row->is_otp == 1) {
             if(empty($otp)){
                 //Send otp after login
                 if ($row->email) {

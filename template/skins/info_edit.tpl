@@ -140,15 +140,17 @@ else
                                                 placeholder="Please enter your Telegram" value="<?=$user->telegram?>">
                                         </div>
                                     </div>
+                                    <?php if(Is_OTP == 1): ?> 
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
                                             <span class="required"> </span>
                                         </label>
                                         <div class="col-md-6 form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="is_otp" id="is_otp">
+                                            <input class="form-check-input" type="checkbox" name="is_otp" id="is_otp" <?= $user->is_otp == 1 ? 'checked' : '' ?> >
                                             <label class="form-check-label" for="is_otp">Require OTP when logging in</label>
                                         </div>
                                     </div>
+                                    <?php endif ?> 
                                     <div class="form-group-tele">
                                         <label class="contact-tele">
                                             <span class="link-wrapper">

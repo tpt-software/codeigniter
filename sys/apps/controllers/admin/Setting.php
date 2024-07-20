@@ -27,6 +27,9 @@ class Setting extends CI_Controller {
 		$this->load->view('setting.tpl',$data);
 	}
 	public function save(){
+		// New variable added
+		$Is_OTP = $this->input->get_post('is_otp_admin',true);
+
 		//Basic settings
 		$Web_Name = $this->input->get_post('Web_Name',true);
 		$Web_Path = $this->input->get_post('Web_Path',true);
@@ -147,7 +150,8 @@ class Setting extends CI_Controller {
       
         $strs .= "define('Tb_Zt',".$Tb_Zt."); //Sync status\r\n";
         $strs .= "define('Tb_Url','".$Tb_Url."'); //Sync address\r\n";
-        $strs .= "define('Tb_Key','".$Tb_Key."'); //Sync key";
+        $strs .= "define('Tb_Key','".$Tb_Key."'); //Sync key\r\n";
+        $strs .= "define('Is_OTP','".$Is_OTP."'); //Sync key";
 
 		//Perform sync to remote server
 		if($Web_Url != Web_Url || 
@@ -163,6 +167,7 @@ class Setting extends CI_Controller {
 			$Jpg_Num != Jpg_Num || 
 			$Jpg_Time != Jpg_Time || 
 			$Jpg_Size != Jpg_Size || 
+			$Is_OTP != Is_OTP || 
 			$yzimu != $Zm_Zmtxt
 		){
 			if($yzimu != $Zm_Zmtxt) $post['zmtxt'] = $Zm_Zmtxt;
@@ -184,6 +189,7 @@ class Setting extends CI_Controller {
 				$post['Jpg_Num'] = $Jpg_Num;
 				$post['Jpg_Time'] = $Jpg_Time;
 				$post['Jpg_Size'] = $Jpg_Size;
+				$post['Is_OTP'] = $Is_OTP;
 				$post['Api_Key'] = $row->apikey;
 				$apiurl = $row->apiurl.'api.php?ac=set&key='.$row->apikey;
 				$res = geturl($apiurl,$post);

@@ -6,7 +6,7 @@ define('CT_Sqlserver','localhost');
 define('CT_Sqlport','');
 
 //Name database
-define('CT_Sqlname','codeigniter');
+define('CT_Sqlname','14412882');
 
 //database table prefix
 define('CT_SqlPrefix','');

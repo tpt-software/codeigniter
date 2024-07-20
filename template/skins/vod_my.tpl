@@ -232,10 +232,19 @@ $khoa = "zino_deptrai";
                                                             if($row->type == 'video'){
                                                                 $icon = '<i class="fa fa-video-camera fa-2" aria-hidden="true" style="color: #FFD43B;"></i>';
                                                                 $link = links('play','index',$row->vid);
+                                                                $linkEdit = links('vod','edit',$row->vid);
+                                                                $linkDel = links('vod','del',$row->id);
+                                                                $thumbImg =  $thumbImg;
+                                                                 $href = "javascript:getajax('".$linkDel."', 'del')";
                                                             }else{
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;"></i>';
                                                                 $link = '/folder/index/'. $row->id;
+                                                                $linkEdit = links('folder','edit',$row->id);
+                                                                $linkDel = links('folder','del',$row->id);
+                                                                $thumbImg = $icon;
+                                                                $href = "javascript:getajax('" . $linkDel . "', 'del', 'If you delete the Folder, all videos inside will be deleted and cannot be restored')";
                                                             }
+
                                                       
 															$html = '
                                                             <tr class="video-item">
@@ -257,7 +266,19 @@ $khoa = "zino_deptrai";
 																<td>'.$row->hits.'</td> 
                                                                 <td id="zm_'.$row->id.'" class="text-primary" style="'.$color.'">'.$zt.'</td>
                                                                 <td>'.date('d-m-Y | H:i:s',$row->addtime).'</td>
-                                                                <td><a onclick="n='.$k.';get_mode(\'fetch\');" href="#longshare" data-toggle="modal" class="mt-clipboard btn btn-sm btn-default custom-link-color"><i class="icon-note"></i> Link</a><a  href="'.links('play','index',$row->vid).'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">  <i class="fa fa-search"></i> Preview</a><a href="'.links('vod','edit',$row->id).'" class="btn btn-sm btn-default custom-edit-color"><i class="fa fa-edit"></i> Edit</a><a  href="javascript:getajax(\''.links('vod','del',$row->id).'\',\'del\');" class="btn btn-sm btn-default custom-delete-color">  <i class="fa fa-remove"></i> Delete </a></td>
+                                                                <td>
+                                                                <a onclick="n='.$k.';get_mode(\'fetch\');" href="#longshare" data-toggle="modal" class="mt-clipboard btn btn-sm btn-default custom-link-color">
+                                                                    <i class="icon-note"></i> Link
+                                                                </a>
+                                                                <a  href="'.$link.'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">
+                                                                    <i class="fa fa-search"></i> Preview
+                                                                </a>
+                                                                <a href="'.$linkEdit.'" class="btn btn-sm btn-default custom-edit-color">
+                                                                    <i class="fa fa-edit"></i> Edit</a>
+                                                                <a  href="'.$href.';" class="btn btn-sm btn-default custom-delete-color">
+                                                                    <i class="fa fa-remove"></i> Delete 
+                                                                </a>
+                                                                </td>
                                                             </tr>
 
                                                             <div id="long'.$row->id.'" class="modal fade" tabindex="-1" data-width="600">

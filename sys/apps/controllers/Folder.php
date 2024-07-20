@@ -119,11 +119,13 @@ class Folder extends CI_Controller {
 		if($id == 0){
 			$data['name'] = '';
 			$data['fid'] = 0;
+			$data['category_id'] = 0;
 		}else{
 			$row = $this->csdb->get_row('folder','*',array('id'=>$id,'user_id'=>$this->cookie->get('user_id')));
 			if(!$row) exit('Category does not exist');
 			$data['name'] = $row->name;
 			$data['fid'] = $row->fid;
+			$data['category_id'] = $row->category_id;
 		}
 		$data['id'] = $id;
 		$user = $this->csdb->get_row('user','*',array('id'=>$this->cookie->get('user_id')));
@@ -170,6 +172,12 @@ class Folder extends CI_Controller {
 		}
 	
 		getjson(array('msg'=>'Move folder success','url'=>links('vod')),1);
+	}
+
+	public function del($id)
+	{
+		$res = $this->db->delete('folder', array('id' => $id));
+		getjson(array('msg'=>'delete folder success','url'=>links('vod')),1);
 	}
 
 }

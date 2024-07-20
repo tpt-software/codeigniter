@@ -115,9 +115,9 @@ function get_open(url,title,w,h){
 function reloadCodes(){
     $('.verifyimg').attr('src', "/index.php/code?" + Math.random());
 }
-function getajax(url,ac){
+function getajax(url,ac, message = 'This will permanently remove the items and cannot be undone.'){
 	if(ac == 'del'){
-		layer.confirm('This will permanently remove the items and cannot be undone.', {
+		layer.confirm(message, {
 			title:'Delete prompt',
 		    btn: ['Delete', 'Cancel'], //Button
 		    shade:0.001

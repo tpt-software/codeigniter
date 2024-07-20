@@ -25,7 +25,7 @@
                                                             <option value="0">Choose category name</option>
                                                          <?php
                                                                 foreach ($class as $row) {
-                                                                    echo '<option value="' . $row->id . '">' . htmlspecialchars($row->name) . '</option>';
+                                                                    echo '<option value="' . $row->id . '"  ' . ($row->id == $category_id ? 'selected' : '') . ' >' . htmlspecialchars($row->name) . '</option>';
                                                                 }
                                                             ?>
                                                         </select>

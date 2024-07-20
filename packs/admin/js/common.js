@@ -30,7 +30,7 @@ layui.use(['element','form','layer'], function(){
             }, 1);
         }else if(data.code == 2) {
             layer.msg(data.msg, { icon: 1 });
-			document.getElementById('loginButton').innerHTML = 'Login';
+			document.getElementById('otpDiv').classList.remove('d-none');
     		document.getElementById('otpField').disabled = false;
         }else {
             layer.msg(data.msg, { icon: 2 });

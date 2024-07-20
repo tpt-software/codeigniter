@@ -65,49 +65,50 @@ class Login extends CI_Controller {
         if($row->pass != md5($pass)) getjson('Incorrect password');
 		if($row->zt > 0) getjson('The account has not been reviewed, please contact the webmaster for review');
 		if($row->is_verify == 0) getjson('Please confirm email before login!');
-        
-        if(empty($otp)){
-            //Send otp after login
-            if ($row->email) {
-                // create otp
-                $otp = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
-                
-                // save otp
-                $data = array(
-                    'token' => $otp,
-                );
-                $this->csdb->get_update("user", array('id' => $row->id), $data);
+        if ($row->is_otp == 1) {
+            if(empty($otp)){
+                //Send otp after login
+                if ($row->email) {
+                    // create otp
+                    $otp = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
+                    
+                    // save otp
+                    $data = array(
+                        'token' => $otp,
+                    );
+                    $this->csdb->get_update("user", array('id' => $row->id), $data);
 
-                // send email
-                $this->load->library('email');
-        
-                $this->email->from($this->email->smtp_user, 'Admin');
-                $this->email->to($row->email);
-                $this->email->subject('OTP');
-                $this->email->message(sprintf('Your OTP : %s', $otp));
-                $this->email->send();    
+                    // send email
+                    $this->load->library('email');
+            
+                    $this->email->from($this->email->smtp_user, 'Admin');
+                    $this->email->to($row->email);
+                    $this->email->subject('OTP');
+                    $this->email->message(sprintf('Your OTP : %s', $otp));
+                    $this->email->send();    
 
-                getjson('OTP has sent. Please check email',2);
+                    getjson('OTP has sent. Please check email',2);
+                }else{
+
+                    getjson('Does not exist email. Please update email!');
+                }
             }else{
+                // check otp
+                $row = $this->csdb->get_row('user','*',array('name'=>$name));
 
-                getjson('Does not exist email. Please update email!');
-            }
-        }else{
-            // check otp
-            $row = $this->csdb->get_row('user','*',array('name'=>$name));
+                // return mess if incorrect
+                if ($row->token == $otp && strlen($row->token) == 6 ) {
+                    
+                    // delete otp after confirm
+                    $data = array(
+                        'token' => '',
+                    );
+                    $this->csdb->get_update("user", array('id' => $row->id), $data);
 
-            // return mess if incorrect
-            if ($row->token == $otp && strlen($row->token) == 6 ) {
-                
-                // delete otp after confirm
-                $data = array(
-                    'token' => '',
-                );
-                $this->csdb->get_update("user", array('id' => $row->id), $data);
-
-            }else{
-                
-                getjson('Incorrect OTP');
+                }else{
+                    
+                    getjson('Incorrect OTP');
+                }
             }
         }
         if($remember){

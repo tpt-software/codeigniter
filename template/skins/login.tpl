@@ -3,6 +3,10 @@
 
 <head>
     <style>
+        .d-none{
+            display : none;
+        }
+    
         .container {
             padding-top: 60px;
         }
@@ -112,7 +116,7 @@
                                     style="color: yellow" aria-hidden="true"></i> Caps Lock is on!</p>
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <div class="layui-form-item d-none" id="otpDiv">
                         <label class="layui-form-label"></label>
                         <div class="layui-input-block password-container">
                             <input type="text" name="otp" class="password" id="otpField"
@@ -134,7 +138,7 @@
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="opacity" lay-submit lay-filter="login" id="loginButton">Send OTP</button>
+                            <button class="opacity" lay-submit lay-filter="login" id="loginButton">Login</button>
                         </div>
                     </div>
                 </form>

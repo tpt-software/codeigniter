@@ -94,6 +94,26 @@
                                 		</select>
                                 	</div>
                             	</div>
+								<div class="form-group">
+                                    <label class="control-label col-md-3">Folder</i>
+                                    	<span class="required" aria-required="true"></span>
+                                    </label>
+                                	<div class="col-md-6">
+                              			<select id="mycid" name="mycid" class="bs-select form-control" title="please select a private category...">
+	                                        <?php
+	                                        foreach($myclass as $row){
+	                                            $check = $row->id == $mycid ? ' selected' : '';
+                                                $arr = $this->csdb->get_select('myclass','*',array('fid'=>$row->id),'id ASC',100);
+                                                echo '<option value="'.$row->id.'"'.$check.'>├&nbsp;'.$row->name.'</option>';
+                                                foreach($arr as $row2){
+                                                    $che2 = $row2->id == $mycid ? ' selected' : '';
+                                                    echo '<option value="'.$row2->id.'"'.$che2.'>&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;'.$row2->name.'</option>';
+                                                }
+	                                        }
+	                                        ?>
+                                		</select>
+                                	</div>
+                            	</div>
 								<center><span>Currently we are supporting the <b><font color=red>mp4|ts|mkv|mov|avi</font></b> videos upload. If you get an error, please <b><font color=red>convert to MP4</font>, We suggest you use the software <a href="https://videoconverter.wondershare.com" target="_blank">videoconverter.wondershare.com</a> to convert and maintain the same video quality. Thank you for using the service!</b></span></center>
 								<br>
 								<p class="btn btn-sm btn-default" style="background: #d70466; color: #fff;" onclick="handleRetryAll()"><i class="fa fa-refresh"></i> Retry all</p> 

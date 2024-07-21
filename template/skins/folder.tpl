@@ -197,8 +197,14 @@ $khoa = "zino_deptrai";
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding...</span>';
                                                             }elseif($row->zt == 2){
-                                                                $color = 'color:#080;';
-                                                                $zt = '<i class="fa fa-check-square-o"></i> Transcoded';
+                                                                 $current_time = time(); 
+                                                                $difference = $current_time - (int) $row->addtime;
+
+                                                                if ($difference < 300) {
+                                                                    $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
+                                                                } else {
+                                                                    $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
+                                                                }
                                                             }elseif($row->zt == 3){
                                                                 $color = 'color:red;';
                                                                 $zt = '<i class="fa fa-window-close-o"> Transcoding failed</i>';
@@ -435,7 +441,13 @@ function get_zt() {
                 if (d[i].zt == 1) {
                     $("#zm_" + value.id).html('<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>');
                 } else if (value.zt == 2) {
-                    $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
+                   let currentTime = Math.floor(Date.now() / 1000);
+                    let difference = currentTime - parseInt(value.addtime);
+                    if (difference < 300) {
+                        $("#zm_" + value.id).html('<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>');
+                    } else {
+                       $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
+                    }
                 } else if (value.zt == 3) {
                     $("#zm_" + value.id).html('<font color=red>Transcoding failed</font>');
                 }
@@ -455,6 +467,8 @@ $(document).ready(function() {
     });
     $('#video_id_array').val(xuanArray);
    })
+   setInterval("get_zt()",5000);
+                console.log(123);
 });
 </script>
 </body>

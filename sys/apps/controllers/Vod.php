@@ -431,7 +431,7 @@ class Vod extends CI_Controller
       {
             $ids = $this->input->post('did', true);
             $user = $this->csdb->get_row('user', '*', array('id' => $this->cookie->get('user_id')));
-            $res = $this->csdb->get_select('vod', 'id,zt', array('id' => $ids, 'uid' => $user->id), 'id DESC', 100);
+            $res = $this->csdb->get_select('vod', '*', array('id' => $ids, 'uid' => $user->id), 'id DESC', 100);
             echo json_encode($res);
       }
 }

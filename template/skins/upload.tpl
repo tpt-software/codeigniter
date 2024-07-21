@@ -388,6 +388,14 @@ function formatSize(size) {
 		previewsContainer: false,
 		init: function() {
 			this.on("addedfile", function(file) {
+				if(cid == 0){
+				layer.msg('No video category selected, unable to upload~',{icon:2});
+				return false;
+				} 
+				if(fid == 0){
+					layer.msg('No Server selected, unable to upload~',{icon:2});
+					return false;
+				}
 				uploader.addFile(file);
 			});
 		},

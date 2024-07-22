@@ -265,6 +265,7 @@ $('#ctlBtn').click(function(event) {
 
 	uploader.on( 'uploadSuccess', function( file,json ) {
 		console.log(file.id);
+		// code tiep o day ne
 		if(json.code == 1){
 		var successMessage = 'Uploaded successfully, has been added to the transcoding queue <i class="fa fa-check" aria-hidden="true"></i>';
 			$('#' + file.id).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: #080; font-size: 13px;  font-style: italic;">' + successMessage + '</span>');

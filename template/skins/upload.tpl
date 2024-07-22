@@ -264,6 +264,7 @@ $('#ctlBtn').click(function(event) {
 	});
 
 	uploader.on( 'uploadSuccess', function( file,json ) {
+		console.log(file.id);
 		if(json.code == 1){
 		var successMessage = 'Uploaded successfully, has been added to the transcoding queue <i class="fa fa-check" aria-hidden="true"></i>';
 			$('#' + file.id).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: #080; font-size: 13px;  font-style: italic;">' + successMessage + '</span>');
@@ -387,7 +388,7 @@ function formatSize(size) {
 		maxFiles: 1,
 		previewsContainer: false,
 		init: function() {
-			this.folderName = '',
+			this.folderName = ''
 		}
 	});
 	myDropzone.on("addedfile", function(file) {
@@ -403,14 +404,5 @@ function formatSize(size) {
 			this.folderName = file.fullPath.split('/').slice(0, -1).join('/');
 		}
 		uploader.addFile(file);
-	});	
-	myDropzone.on("success", function(file) {
-		if(cid == 0){
-			return false;
-		} 
-		if(fid == 0){
-			return false;
-		}
-		console.log(this.files);
-	});	
+	});
 </script>

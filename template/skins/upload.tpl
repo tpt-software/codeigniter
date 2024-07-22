@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/modules/layer/default/layer.css">
 <link rel="stylesheet" href="<?=Web_Path?>packs/static/css/mod.css">
 <link rel="stylesheet" type="text/css" href="/packs/plupload/css/webuploader.css">
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <!-- Google tag new (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V5WS9M2D0"></script>
@@ -16,6 +18,11 @@
 
   gtag('config', 'G-7V5WS9M2D0');
 </script>
+<style>
+	.file-drag{
+		width: 100%;
+	}
+</style>
  </head>
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -126,6 +133,8 @@
 										        <div id="picker">Select</div>
 										        <div id="ctlBtn">Upload</div>
 										    </div>
+											<form class="dropzone" id="dropzoneForm">
+											</form>
 										    <div id="thelist"></div>
 										</div> 
 									</div>
@@ -381,4 +390,34 @@ function formatSize(size) {
 			}
 		});  
 	}	
+</script>
+
+<script>
+	Dropzone.autoDiscover = false;
+	var myDropzone = new Dropzone("#dropzoneForm", {
+		url: '/upload',
+		parallelUploads: 1,  
+		maxFilesize: 1024,   
+		chunking: true,    
+		forceChunking: true, 
+		parallelChunkUploads: true, 
+		chunkSize: 2000000, 
+		retryChunks: true, 
+		retryChunksLimit: 1, 
+		maxFiles: 1,
+		previewsContainer: false,
+		init: function() {
+			this.on("addedfile", function(file) {
+				if(cid == 0){
+				layer.msg('No video category selected, unable to upload~',{icon:2});
+				return false;
+				} 
+				if(fid == 0){
+					layer.msg('No Server selected, unable to upload~',{icon:2});
+					return false;
+				}
+				uploader.addFile(file);
+			});
+		},
+	});	
 </script>

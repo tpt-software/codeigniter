@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/modules/layer/default/layer.css">
 <link rel="stylesheet" href="<?=Web_Path?>packs/static/css/mod.css">
 <link rel="stylesheet" type="text/css" href="/packs/plupload/css/webuploader.css">
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <!-- Google tag new (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V5WS9M2D0"></script>
@@ -16,6 +18,11 @@
 
   gtag('config', 'G-7V5WS9M2D0');
 </script>
+<style>
+	.file-drag{
+		width: 100%;
+	}
+</style>
  </head>
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -94,6 +101,26 @@
                                 		</select>
                                 	</div>
                             	</div>
+								<div class="form-group">
+                                    <label class="control-label col-md-3">Folder</i>
+                                    	<span class="required" aria-required="true"></span>
+                                    </label>
+                                	<div class="col-md-6">
+                              			<select id="mycid" name="mycid" class="bs-select form-control" title="please select a private category...">
+	                                        <?php
+	                                        foreach($myclass as $row){
+	                                            $check = $row->id == $mycid ? ' selected' : '';
+                                                $arr = $this->csdb->get_select('myclass','*',array('fid'=>$row->id),'id ASC',100);
+                                                echo '<option value="'.$row->id.'"'.$check.'>├&nbsp;'.$row->name.'</option>';
+                                                foreach($arr as $row2){
+                                                    $che2 = $row2->id == $mycid ? ' selected' : '';
+                                                    echo '<option value="'.$row2->id.'"'.$che2.'>&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;'.$row2->name.'</option>';
+                                                }
+	                                        }
+	                                        ?>
+                                		</select>
+                                	</div>
+                            	</div>
 								<center><span>Currently we are supporting the <b><font color=red>mp4|ts|mkv|mov|avi</font></b> videos upload. If you get an error, please <b><font color=red>convert to MP4</font>, We suggest you use the software <a href="https://videoconverter.wondershare.com" target="_blank">videoconverter.wondershare.com</a> to convert and maintain the same video quality. Thank you for using the service!</b></span></center>
 								<br>
 								<p class="btn btn-sm btn-default" style="background: #d70466; color: #fff;" onclick="handleRetryAll()"><i class="fa fa-refresh"></i> Retry all</p> 
@@ -106,6 +133,8 @@
 										        <div id="picker">Select</div>
 										        <div id="ctlBtn">Upload</div>
 										    </div>
+											<form class="dropzone" id="dropzoneForm">
+											</form>
 										    <div id="thelist"></div>
 										</div> 
 									</div>
@@ -255,6 +284,8 @@ $('#ctlBtn').click(function(event) {
 	});
 
 	uploader.on( 'uploadSuccess', function( file,json ) {
+		console.log(file.id);
+		// code tiep o day ne
 		if(json.code == 1){
 		var successMessage = 'Uploaded successfully, has been added to the transcoding queue <i class="fa fa-check" aria-hidden="true"></i>';
 			$('#' + file.id).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: #080; font-size: 13px;  font-style: italic;">' + successMessage + '</span>');
@@ -361,4 +392,38 @@ function formatSize(size) {
 			}
 		});  
 	}	
+</script>
+
+<script>
+	Dropzone.autoDiscover = false;
+	var myDropzone = new Dropzone("#dropzoneForm", {
+		url: '/upload',
+		parallelUploads: 1,  
+		maxFilesize: 1024,   
+		chunking: true,    
+		forceChunking: true, 
+		parallelChunkUploads: true, 
+		chunkSize: 2000000, 
+		retryChunks: true, 
+		retryChunksLimit: 1, 
+		maxFiles: 1,
+		previewsContainer: false,
+		init: function() {
+			this.folderName = ''
+		}
+	});
+	myDropzone.on("addedfile", function(file) {
+		if(cid == 0){
+			layer.msg('No video category selected, unable to upload~',{icon:2});
+			return false;
+		} 
+		if(fid == 0){
+			layer.msg('No Server selected, unable to upload~',{icon:2});
+			return false;
+		}
+		if(file.fullPath) {
+			this.folderName = file.fullPath.split('/').slice(0, -1).join('/');
+		}
+		uploader.addFile(file);
+	});
 </script>

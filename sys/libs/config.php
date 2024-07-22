@@ -28,3 +28,4 @@ define('Admin_Count',''); //Statistical code
 define('Tb_Zt',0); //Sync status
 define('Tb_Url',''); //Sync address
 define('Tb_Key',''); //Sync key
+define('Is_OTP','0'); //Sync key

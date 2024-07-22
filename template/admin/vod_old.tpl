@@ -137,7 +137,14 @@
                             if($row->zt==1){
 								$status = '<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>';
 							}elseif($row->zt==2){
-                                $status = '<font color=green>Transcoding complete</font>';
+                                $current_time = time(); 
+                                $difference = $current_time - (int) $row->addtime;
+
+                                if ($difference < 300) {
+                                    $status = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
+                                } else {
+                                    $status = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
+                                }
                             }elseif($row->zt==3){
                                 $status = '<font color=red>Transcoding failed</font>';
                             }else{
@@ -225,6 +232,7 @@
 					v.push(a[n].value);
 				}
 				setInterval("get_zt()",5000);
+                console.log(123);
                 $.get('/ajax/err');
 			});
 			function get_zt(){
@@ -233,7 +241,13 @@
 						if(d[i].zt == 1){
 							$("#zm_"+value.id).html('<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>');
 						} else if(value.zt == 2){
-							$("#zm_"+value.id).html('<font color=green>Transcoding complete</font>');
+							let currentTime = Math.floor(Date.now() / 1000);
+                            let difference = currentTime - parseInt(value.addtime);
+                            if (difference < 300) {
+                                $("#zm_" + value.id).html('<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>');
+                            } else {
+                                $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
+                            }
 						} else if(value.zt == 3){
 							$("#zm_"+value.id).html('<font color=red>Transcoding failed</font>');
 						}

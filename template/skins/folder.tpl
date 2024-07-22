@@ -197,8 +197,7 @@ $khoa = "zino_deptrai";
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding...</span>';
                                                             }elseif($row->zt == 2){
-                                                               $current_time = time(); 
-
+                                                                 $current_time = time(); 
                                                                 $difference = $current_time - (int) $row->addtime;
 
                                                                 if ($difference < 300) {
@@ -237,28 +236,12 @@ $khoa = "zino_deptrai";
                                                             }
                                                             $icon = '';
                                                             if($row->type == 'video'){
-                                                                $icon = '<i class="fa fa-video-camera" aria-hidden="true" style="color: #FFD43B;font-size: 19px;"></i>';
+                                                                $icon = '<i class="fa fa-video-camera fa-2" aria-hidden="true" style="color: #FFD43B;"></i>';
                                                                 $link = links('play','index',$row->vid);
-                                                                $linkEdit = links('vod','edit',$row->vid);
-                                                                $linkDel = links('vod','del',$row->id);
-                                                                $thumbImg =  $thumbImg;
-                                                                $href = "javascript:getajax('".$linkDel."', 'del')";
-                                                                $editVideo = ' <a onclick="n='.$k.';get_mode(\'fetch\');" href="#longshare" data-toggle="modal" class="mt-clipboard btn btn-sm btn-default custom-link-color">
-                                                                    <i class="icon-note"></i> Link
-                                                                </a>
-                                                                <a  href="'.$link.'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">
-                                                                    <i class="fa fa-search"></i> Preview
-                                                                </a>';           
                                                             }else{
-                                                                $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;font-size: 19px;"></i>';
-                                                                $link = '/folder/index/'. $row->id;
-                                                                $linkEdit = links('folder','edit',$row->id);
-                                                                $linkDel = links('folder','del',$row->id);
-                                                                $thumbImg = $icon;
-                                                                $href = "javascript:getajax('" . $linkDel . "', 'del', 'If you delete the Folder, all videos inside will be deleted and cannot be restored')";
-                                                                $editVideo = '';
+                                                                $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;"></i>';
+                                                                $link = '/folders/'. $row->id;
                                                             }
-
                                                       
 															$html = '
                                                             <tr class="video-item">
@@ -280,14 +263,7 @@ $khoa = "zino_deptrai";
 																<td>'.$row->hits.'</td> 
                                                                 <td id="zm_'.$row->id.'" class="text-primary" style="'.$color.'">'.$zt.'</td>
                                                                 <td>'.date('d-m-Y | H:i:s',$row->addtime).'</td>
-                                                                <td>'.$editVideo.'
-
-                                                                <a href="'.$linkEdit.'" class="btn btn-sm btn-default custom-edit-color">
-                                                                    <i class="fa fa-edit"></i> Edit</a>
-                                                                <a  href="'.$href.';" class="btn btn-sm btn-default custom-delete-color">
-                                                                    <i class="fa fa-remove"></i> Delete 
-                                                                </a>
-                                                                </td>
+                                                                <td><a onclick="n='.$k.';get_mode(\'fetch\');" href="#longshare" data-toggle="modal" class="mt-clipboard btn btn-sm btn-default custom-link-color"><i class="icon-note"></i> Link</a><a  href="'.links('play','index',$row->vid).'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">  <i class="fa fa-search"></i> Preview</a><a href="'.links('vod','edit',$row->id).'" class="btn btn-sm btn-default custom-edit-color"><i class="fa fa-edit"></i> Edit</a><a  href="javascript:getajax(\''.links('vod','del',$row->id).'\',\'del\');" class="btn btn-sm btn-default custom-delete-color">  <i class="fa fa-remove"></i> Delete </a></td>
                                                             </tr>
 
                                                             <div id="long'.$row->id.'" class="modal fade" tabindex="-1" data-width="600">
@@ -350,7 +326,7 @@ $khoa = "zino_deptrai";
         <div class="modal-body">
 
             <div style="padding-top:5px;">
-                <h5>List Folder</h5>
+                <h5>Player address</h5>
                 
 				<div class="input-group" id="copy_iframe_backup">
                     <input type="text" class="form-control" readonly>
@@ -406,7 +382,7 @@ $khoa = "zino_deptrai";
                     foreach($folders as $folder){
                         echo'
 				        <div class="input-group" id="copy_iframe_backup">
-                            <input type="radio" class="video-checkbox" title="move to" name="folder_id" value="'.$folder->id.'">
+                            <input type="checkbox" name="folder_id" value="'.$folder->id.'">
                             <i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
                             <span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">'.$folder->name.'</span>
                         </div>';
@@ -465,7 +441,7 @@ function get_zt() {
                 if (d[i].zt == 1) {
                     $("#zm_" + value.id).html('<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>');
                 } else if (value.zt == 2) {
-                    let currentTime = Math.floor(Date.now() / 1000);
+                   let currentTime = Math.floor(Date.now() / 1000);
                     let difference = currentTime - parseInt(value.addtime);
                     if (difference < 300) {
                         $("#zm_" + value.id).html('<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>');
@@ -481,20 +457,18 @@ function get_zt() {
 }
 $(document).ready(function() {
    $('.move-folder-a-click').on('click', function(){
-        var xuanArray = [];
+   var xuanArray = [];
 
-        $('.xuan').each(function() {
-            if ($(this).is(':checked')) {
-                var value = $(this).val();
-                xuanArray.push(value);
-            }
-        });
-        $('#video_id_array').val(xuanArray);
+    $('.xuan').each(function() {
+        if ($(this).is(':checked')) {
+            var value = $(this).val();
+            xuanArray.push(value);
+        }
+    });
+    $('#video_id_array').val(xuanArray);
    })
-
-setInterval("get_zt()",5000);
+   setInterval("get_zt()",5000);
                 console.log(123);
-
 });
 </script>
 </body>

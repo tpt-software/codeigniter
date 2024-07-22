@@ -272,6 +272,13 @@
 								</div>
 								<div class="layui-form-mid layui-word-aux">Please enter the statistical code</div>
 							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">Require OTP when login</label>
+								<div class="layui-input-inline">
+									<input type="radio" name="is_otp_admin" value="1" title="On" <?=Is_OTP==1?'checked':''?>>
+									<input type="radio" name="is_otp_admin" value="0" title="Off" <?=Is_OTP==0?'checked':''?>>
+								</div>
+							</div>
 						</div>
 						<div class="layui-form-item">
 							<div class="layui-input-block" style="padding-top: 10px">

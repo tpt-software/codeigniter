@@ -387,17 +387,30 @@ function formatSize(size) {
 		maxFiles: 1,
 		previewsContainer: false,
 		init: function() {
-			this.on("addedfile", function(file) {
-				if(cid == 0){
-				layer.msg('No video category selected, unable to upload~',{icon:2});
-				return false;
-				} 
-				if(fid == 0){
-					layer.msg('No Server selected, unable to upload~',{icon:2});
-					return false;
-				}
-				uploader.addFile(file);
-			});
-		},
+			this.folderName = '',
+		}
+	});
+	myDropzone.on("addedfile", function(file) {
+		if(cid == 0){
+			layer.msg('No video category selected, unable to upload~',{icon:2});
+			return false;
+		} 
+		if(fid == 0){
+			layer.msg('No Server selected, unable to upload~',{icon:2});
+			return false;
+		}
+		if(file.fullPath) {
+			this.folderName = file.fullPath.split('/').slice(0, -1).join('/');
+		}
+		uploader.addFile(file);
+	});	
+	myDropzone.on("success", function(file) {
+		if(cid == 0){
+			return false;
+		} 
+		if(fid == 0){
+			return false;
+		}
+		console.log(this.files);
 	});	
 </script>

@@ -109,7 +109,7 @@ class Folder extends CI_Controller {
 		$data['servers'] = $servers;
 
 		$this->load->view('head.tpl', $data);
-		$this->load->view('folder.tpl');
+		$this->load->view('vod_my.tpl');
 		$this->load->view('bottom.tpl');
 	}
 

@@ -180,4 +180,15 @@ class Folder extends CI_Controller {
 		getjson(array('msg'=>'delete folder success','url'=>links('vod')),1);
 	}
 
+	public function add_folder_ajax() {
+		$data['name'] = $this->input->get('folder_name',true);
+		$data['category_id'] = (int)$this->input->get('category_id',true);
+		if(empty($data['name'])) getjson('Folder name cannot be empty');
+		$data['user_id'] = $this->cookie->get('user_id');
+		$folder =  $this->csdb->get_insert('folder',$data);
+		$row = $this->csdb->get_row('folder','*',array('id'=>$folder));
+		$ok = ['status' => 'success', 'data' => $row];
+		getjson($ok, 1);
+	}
+
 }

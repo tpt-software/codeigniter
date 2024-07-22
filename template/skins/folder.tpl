@@ -192,8 +192,9 @@ $khoa = "zino_deptrai";
                                                                     $myname = '';
                                                                 }
                                                             }
-															
+															  $visble_link_video = false;
                                                             if($row->zt == 1){
+                                                                  $visble_link_video = false;
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding...</span>';
                                                             }elseif($row->zt == 2){
@@ -201,14 +202,18 @@ $khoa = "zino_deptrai";
                                                                 $difference = $current_time - (int) $row->addtime;
 
                                                                 if ($difference < 300) {
+                                                                      $visble_link_video = false;
                                                                     $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
                                                                 } else {
+                                                                      $visble_link_video = true;
                                                                     $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
                                                                 }
                                                             }elseif($row->zt == 3){
+                                                                  $visble_link_video = false;
                                                                 $color = 'color:red;';
                                                                 $zt = '<i class="fa fa-window-close-o"> Transcoding failed</i>';
                                                             }else{
+                                                                  $visble_link_video = false;
                                                                 $color = 'color:#f90;';
                                                                 $zt = '<i class="fa fa-retweet"></i> To be transcoded';
                                                             }
@@ -241,6 +246,9 @@ $khoa = "zino_deptrai";
                                                             }else{
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;"></i>';
                                                                 $link = '/folders/'. $row->id;
+                                                            }
+                                                            if( $visble_link_video == false){
+                                                                $link = 'javascript:;';
                                                             }
                                                       
 															$html = '

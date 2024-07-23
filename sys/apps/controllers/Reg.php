@@ -8,7 +8,7 @@ class Reg extends CI_Controller {
 	}
 
 	public function index(){
-        $this->load->view('reg.tpl');
+                $this->load->view('reg.tpl');
 	}
 
         public function success(){

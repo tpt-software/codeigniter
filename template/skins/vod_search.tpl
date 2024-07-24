@@ -52,10 +52,12 @@
 															}else{
 																$server = array();
 															}
+                                                            $visble_link_video = false;
                                                             $cname = ' -- ';
                                                             if($row->cid > 0) $cname = getzd('class','name',$row->cid);
                                                             if($row->zt == 1){
                                                                 $color = '';
+                                                                $visble_link_video = false;
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding';
                                                             }elseif($row->zt == 2){
                                                                 $current_time = time(); 
@@ -63,14 +65,20 @@
                                                                 $difference = $current_time - (int) $row->addtime;
 
                                                                 if ($difference < 300) {
+                                                                $visble_link_video = false;
+
                                                                     $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
                                                                 } else {
+                                                                $visble_link_video = true;
+
                                                                     $zt = '<i class="fa fa-check-square-o"></i> Transcoded';
                                                                 }
                                                             }elseif($row->zt == 3){
+                                                                $visble_link_video = false;
                                                                 $color = 'color:red;';
                                                                 $zt = '<i class="fa fa-window-close-o"> Transcoding failed</i>';
                                                             }else{
+                                                                $visble_link_video = false;
                                                                 $color = 'color:#f90;';
                                                                 $zt = '<i class="fa fa-retweet"></i> To be transcoded';
                                                             }
@@ -90,6 +98,9 @@
                                                                     $pic2 .= $piclink.'</br>';
                                                                 }
                                                                 $thumbImg = '<img class="lazy" src="'.m3u8_link($row->vid,$row->addtime,'pic',1,$server).'" style="height: 50px;width: 90px;">';
+                                                            }
+                                                             if( $visble_link_video == false){
+                                                                $link = 'javascript:;';
                                                             }
                                                             echo '
                                                             <tr>

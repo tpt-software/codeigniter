@@ -134,21 +134,30 @@
                     <?php
                         if(empty($vod)) echo '<tr><td align="center" height="50" colspan="13">No relevant records have been found</td></tr>';
                         foreach ($vod as $row) {
+                            $visble_link_video = false;
                             if($row->zt==1){
+                                $visble_link_video =false;
 								$status = '<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>';
 							}elseif($row->zt==2){
                                 $current_time = time(); 
                                 $difference = $current_time - (int) $row->addtime;
 
                                 if ($difference < 300) {
+                                    $visble_link_video =false;
                                     $status = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
                                 } else {
+                                    $visble_link_video =true;
                                     $status = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
                                 }
                             }elseif($row->zt==3){
+                                $visble_link_video =false;
                                 $status = '<font color=red>Transcoding failed</font>';
                             }else{
+                                $visble_link_video =false;
                                 $status = '<font color=#f90>Waiting for transcoding</font>';
+                            }
+                            if( $visble_link_video == false){
+                                $link = 'javascript:;';
                             }
                             $cname = ' -- ';
                             $sname = ' -- ';

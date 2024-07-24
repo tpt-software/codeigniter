@@ -69,7 +69,7 @@
                                         $check = $row->id == $cid ? ' checked=""' : '';
                                         echo '
                                             <div class="md-radio">
-                                                <input type="radio" id="'.$row->id.'" name="cid" class="md-radiobtn" value="'.$row->id.'"'.$check.'>
+                                                <input type="radio" id="'.$row->id.'" name="cid" class="md-radiobtn radio_category" value="'.$row->id.'"'.$check.'>
                                                 <label for="'.$row->id.'">
                                                     <span></span>
                                                     <span class="check"></span>
@@ -105,20 +105,8 @@
                                     <label class="control-label col-md-3">Folder</i>
                                     	<span class="required" aria-required="true"></span>
                                     </label>
-                                	<div class="col-md-6">
-                              			<select id="mycid" name="mycid" class="bs-select form-control" title="please select a private category...">
-	                                        <?php
-	                                        foreach($myclass as $row){
-	                                            $check = $row->id == $mycid ? ' selected' : '';
-                                                $arr = $this->csdb->get_select('myclass','*',array('fid'=>$row->id),'id ASC',100);
-                                                echo '<option value="'.$row->id.'"'.$check.'>├&nbsp;'.$row->name.'</option>';
-                                                foreach($arr as $row2){
-                                                    $che2 = $row2->id == $mycid ? ' selected' : '';
-                                                    echo '<option value="'.$row2->id.'"'.$che2.'>&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;'.$row2->name.'</option>';
-                                                }
-	                                        }
-	                                        ?>
-                                		</select>
+                                	<div class="col-md-6 folder_div">
+                              			<button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button>
                                 	</div>
                             	</div>
 								<center><span>Currently we are supporting the <b><font color=red>mp4|ts|mkv|mov|avi</font></b> videos upload. If you get an error, please <b><font color=red>convert to MP4</font>, We suggest you use the software <a href="https://videoconverter.wondershare.com" target="_blank">videoconverter.wondershare.com</a> to convert and maintain the same video quality. Thank you for using the service!</b></span></center>
@@ -146,6 +134,58 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="modal-move-folder" class="modal fade in modal-overflow" aria-hidden="true" tabindex="-1" data-width="600" style="display: none;">
+    <form action="<?=links('folder','save', 0)?>" method="post" class="modal-content layui-form form-horizontal" style="opacity: 1;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">Add folder</h4>
+        </div>
+        <div class="modal-body">
+
+            <div style="padding-top:5px;">
+                <h5>Add Folder</h5>
+					<div class="form-body">
+						<div class="form-group">
+							<label class="control-label col-md-3">Category Name
+								<span class="required"> * </span>
+							</label>
+							<div class="col-md-6">
+									<select name="category_id" id="category_id_add_folder" class="form-control">
+									<option value="0">Choose category name</option>
+									<?php
+										foreach ($class as $row) {
+											echo '<option value="' . $row->id . '"  ' . ($row->id == $category_id ? 'selected' : '') . ' >' . htmlspecialchars($row->name) . '</option>';
+										}
+									?>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-3">Folder Name
+								<span class="required"> * </span>
+							</label>
+							<div class="col-md-6">
+								<input type="text" id="folder_name_add_folder" name="folder_name" required  lay-verify="required" placeholder="Please enter a category name" value="<?=$name?>"   class="form-control"/> 
+							</div>
+						</div>
+					</div>
+               
+				<br>
+            </div>
+                
+        </div>
+        <div class="modal-footer" style="padding:20px;">
+            <button type="button"  class="add_folder_button btn btn-primary btn-sm" data-dismiss="modal">
+                Add Folder
+            </button>
+            <a class="btn btn-default btn-sm" data-dismiss="modal">
+                Close
+            </a>
+        </div>
+    </form>
 </div>
 <script type="text/javascript" src="/packs/plupload/js/webuploader.js"></script>
 <script type="text/javascript">
@@ -284,12 +324,12 @@ $('#ctlBtn').click(function(event) {
 	});
 
 	uploader.on( 'uploadSuccess', function( file,json ) {
-		console.log(file.id);
 		// code tiep o day ne
 		if(json.code == 1){
 		var successMessage = 'Uploaded successfully, has been added to the transcoding queue <i class="fa fa-check" aria-hidden="true"></i>';
 			$('#' + file.id).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: #080; font-size: 13px;  font-style: italic;">' + successMessage + '</span>');
 			$.get(zmurl+'?id='+json.did);
+		$.get('/upload/update_folder_id'+'?id='+json.did + "&folder_id=" + $('#folder_id_selected:checked').val());
 		}else{
 			$( '#'+file.id ).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: red; font-size: 13px;  font-style: italic;">Upload video successfully, please wait for video transcoding: '+json.msg+'</span>');
 		}
@@ -426,4 +466,70 @@ function formatSize(size) {
 		}
 		uploader.addFile(file);
 	});
+	$('.radio_category').on('change', function (){
+		$.ajax({
+		type: "get",
+		url: '/upload/get_folders',
+		data: {
+			category_id: $(this).val(),
+		},
+		dataType: "json",
+		success: function(response) {
+			
+			console.log(response.data);
+			data = response.data;
+			folder_html = '<button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button>';
+
+			for(let folder of data){
+				folder_html +=`
+				<div class="input-group" id="copy_iframe_backup">
+					<input type="radio" class="video-checkbox" title="move to" id="folder_id_selected" name="folder_id" value="${folder.id}">
+					<i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
+					<span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">${folder.name}</span>
+				</div>`;
+			}
+			$('.folder_div').html(folder_html);
+		},
+		error: function (data) {
+			
+		}
+		})
+	})
+	$('.add_folder_button').on('click', function (){
+		category_id = $("#category_id_add_folder").val();
+		folder_id = $('#folder_name_add_folder').val();
+		if(category_id == 0){
+			layer.msg('category name cannot empty',{icon:2});
+			return false;
+		} 
+		if(folder_id == 0){
+			layer.msg('folder name cannot empty',{icon:2});
+			return false;
+		}
+		dataRequest = {
+			category_id: category_id,
+			folder_name: folder_id,
+		}
+
+		$.ajax({
+		type: "get",
+		url: '/folder/add_folder_ajax',
+		data: dataRequest,
+		dataType: "json",
+		success: function(response) {
+			folder = response.data;
+			folder_html = '';
+			folder_html +=`
+				<div class="input-group" id="copy_iframe_backup">
+					<input type="radio" class="video-checkbox" title="move to" name="folder_id" id="folder_id_selected" value="${folder.id}">
+					<i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
+					<span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">${folder.name}</span>
+				</div>`;
+				$('.folder_div').append(folder_html);
+		},
+		error: function (data) {
+			
+		}
+		})
+	})
 </script>

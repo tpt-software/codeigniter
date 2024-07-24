@@ -79,9 +79,9 @@ class Setting extends CI_Controller {
 		if($Zm_Zm == 1){
 			if(empty($Zm_Zmtxt)) getjson('Subtitle content cannot be empty');
 		}
-		if(substr($Zm_Zmtxt,0,9) != 'Dialogue:'){
-			getjson('Wrong subtitle content format');
-		}
+		// if(substr($Zm_Zmtxt,0,9) != 'Dialogue:'){
+		// 	getjson('Wrong subtitle content format');
+		// }
 		//Modify subtitle content
 		$zmstr = file_get_contents(FCPATH.'packs/ffmpeg/zimu.ass');
 		$zmarr = explode("[Events]\r\n", $zmstr);

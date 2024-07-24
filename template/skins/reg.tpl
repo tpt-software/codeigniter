@@ -18,6 +18,9 @@
     <script src="/packs/static/js/jquery.min.js"></script>
     <script src="<?=Web_Path?>packs/layer/layer.js"></script>
     <style>
+    .layui-layer-hui{
+            background-color: #fff;
+    }
         .copyright-reg {
             position: fixed;
             bottom: 0;

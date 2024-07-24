@@ -454,4 +454,22 @@ class Upload extends CI_Controller
 		$ok = ['status' => 'success', 'data' => $key];
 		getjson($ok, 1);
 	}
+
+	public function get_folders(){
+		$user = $this->csdb->get_row('user', '*', array('id' => $this->cookie->get('user_id')));
+		$category_id = $this->input->get('category_id');
+		$folders =  $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id, 'category_id' => $category_id), 'created_at DESC', $limit);
+		$ok = ['status' => 'success', 'data' => $folders];
+		getjson($ok, 1);
+	}
+
+	public function update_folder_id(){
+		$video_id = (int) $this->input->get('id');
+		$folder_id = (int) $this->input->get('folder_id');
+		$data = [
+			'folder_id' => $folder_id,
+		];
+		$this->db->update("vod",$data,array('id'=> $video_id));
+		getjson($ok, 1);
+	}
 }

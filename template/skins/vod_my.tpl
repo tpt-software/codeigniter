@@ -192,8 +192,9 @@ $khoa = "zino_deptrai";
                                                                     $myname = '';
                                                                 }
                                                             }
-															
+                                                            $visble_link_video = false;
                                                             if($row->zt == 1){
+                                                                $visble_link_video =false;
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding...</span>';
                                                             }elseif($row->zt == 2){
@@ -204,12 +205,15 @@ $khoa = "zino_deptrai";
                                                                 if ($difference < 300) {
                                                                     $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
                                                                 } else {
+                                                                    $visble_link_video =true;
                                                                     $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
                                                                 }
                                                             }elseif($row->zt == 3){
+                                                                $visble_link_video =false;
                                                                 $color = 'color:red;';
                                                                 $zt = '<i class="fa fa-window-close-o"> Transcoding failed</i>';
                                                             }else{
+                                                                $visble_link_video =false;
                                                                 $color = 'color:#f90;';
                                                                 $zt = '<i class="fa fa-retweet"></i> To be transcoded';
                                                             }
@@ -248,7 +252,9 @@ $khoa = "zino_deptrai";
                                                                 </a>
                                                                 <a  href="'.$link.'"  target="_blank" class="btn btn-sm btn-default custom-preview-color">
                                                                     <i class="fa fa-search"></i> Preview
-                                                                </a>';           
+                                                                </a>';
+                                                                $capacity = formatsize($row->size);
+                                                                $duration = formattime((int)$row->duration,1);
                                                             }else{
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;font-size: 19px;"></i>';
                                                                 $link = '/folder/index/'. $row->id;
@@ -257,8 +263,13 @@ $khoa = "zino_deptrai";
                                                                 $thumbImg = $icon;
                                                                 $href = "javascript:getajax('" . $linkDel . "', 'del', 'If you delete the Folder, all videos inside will be deleted and cannot be restored')";
                                                                 $editVideo = '';
+                                                                $capacity = "--";
+                                                                $duration = '--';
+                                                                $visble_link_video = true;
                                                             }
-
+                                                            if( $visble_link_video == false){
+                                                                $link = 'javascript:;';
+                                                            }
                                                       
 															$html = '
                                                             <tr class="video-item">
@@ -274,8 +285,8 @@ $khoa = "zino_deptrai";
                                                                 <td>'.$thumbImg.'</td>
 																
                                                                 <td style="text-align: left;"><a href="'.$link.'" target="_blank" title="'.$row->name.'">'.$icon.$name.'</a></td>
-																<td><span class="label label-info">'.formatsize($row->size).'</span>
-																<td><span class="label label-info">'.formattime((int)$row->duration,1).'</span></td>
+																<td><span class="label label-info">'.$capacity.'</span>
+																<td><span class="label label-info">'.$duration.'</span></td>
                                                                 <td>'.$cname.'</td>
 																<td>'.$row->hits.'</td> 
                                                                 <td id="zm_'.$row->id.'" class="text-primary" style="'.$color.'">'.$zt.'</td>

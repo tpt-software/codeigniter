@@ -74,7 +74,7 @@ $khoa = "zino_deptrai";
 										<div style="text-align: right;">
                                         
 										<div>
-                                        <span><a href="<?=links('folder', 'edit')?>" class="btn btn-sm btn-default custom-link-color">Add Folder</a></span>
+                                        <span><button  data-toggle="modal" data-target="#modal-add-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button></span>
                                         <span><button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Move Folder</button></span>
                                         <span><a href="<?=links('upload')?>" class="btn btn-sm btn-default custom-link-color">Upload Video</a></span>
                                         </div></div>
@@ -270,7 +270,7 @@ $khoa = "zino_deptrai";
                                                                 $zt = '--';
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;font-size: 19px;"></i>';
                                                                 $link = '/folder/index/'. $row->id;
-                                                                $linkEdit = links('folder','edit',$row->id);
+                                                                $linkEdit = 'javascript:;';
                                                                 $linkDel = links('folder','del',$row->id);
                                                                 $thumbImg = $icon;
                                                                 $href = "javascript:getajax('" . $linkDel . "', 'del', 'If you delete the Folder, all videos inside will be deleted and cannot be restored')";
@@ -307,7 +307,7 @@ $khoa = "zino_deptrai";
                                                                 <td>'.date('d-m-Y | H:i:s',$row->addtime).'</td>
                                                                 <td>'.$editVideo.'
 
-                                                                <a href="'.$linkEdit.'" class="btn btn-sm btn-default custom-edit-color">
+                                                                <a href="'.$linkEdit.'" data-value="'.$row->name.'" data-id="'.$row->id.'" '.($row->type ='folder' ? 'data-toggle="modal" data-target="#modal-add-folder"' : "").' class="btn btn-sm btn-default custom-edit-color '.($row->type  == 'video' ? '' : 'edit_folder_a_button').'">
                                                                     <i class="fa fa-edit"></i> Edit</a>
                                                                 <a  href="'.$href.';" class="btn btn-sm btn-default custom-delete-color">
                                                                     <i class="fa fa-remove"></i> Delete 
@@ -451,6 +451,42 @@ $khoa = "zino_deptrai";
         </div>
     </form>
 </div>
+<div id="modal-add-folder" class="modal fade in modal-overflow" aria-hidden="true" tabindex="-1" data-width="600" style="display: none;">
+    <form action="<?=links('folder','save', 0)?>" method="post" class="modal-content layui-form form-horizontal form-add-folder" style="opacity: 1;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">Add/Edit Folder</h4>
+        </div>
+        <div class="modal-body">
+
+            <div style="padding-top:5px;">
+                <h5>Add/Edit Folder</h5>
+					<div class="form-body">
+						<input type="hidden" class="folder_id" />
+						<div class="form-group">
+							<label class="control-label col-md-3">Folder Name
+								<span class="required"> * </span>
+							</label>
+							<div class="col-md-6">
+								<input type="text" id="folder_name_add_folder" name="folder_name" required  lay-verify="required" placeholder="Please enter a category name" value=""   class="form-control"/> 
+							</div>
+						</div>
+					</div>
+               
+				<br>
+            </div>
+                
+        </div>
+        <div class="modal-footer" style="padding:20px;">
+            <button type="submit" lay-submit lay-filter="*" class="add_folder_button btn btn-primary btn-sm" data-dismiss="modal">
+                Add/Edit Folder
+            </button>
+            <a class="btn btn-default btn-sm" data-dismiss="modal">
+                Close
+            </a>
+        </div>
+    </form>
+</div>
 <script src="/packs/admin/js/vod.js" defer charset="UTF-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js" defer></script>
 <script language="javascript">var n=0;var upl_array=<?=json_encode($arr)?>;function get_mode(type){var file=upl_array[n];var line=file.vip;$('#copy_vip input').val(line);$('#copy_vip .copy-btn').attr('data-clipboard-text',line);var line='<iframe width="100%" height="100%" src="'+file.vip+'" frameborder="0" allowfullscreen></iframe>';$('#copy_if_vip input').val(line);$('#copy_if_vip .copy-btn').attr('data-clipboard-text',line);var line='<iframe width="100%" height="100%" src="'+file.link_backup+'" frameborder="0" allowfullscreen></iframe>';$('#copy_iframe_backup input').val(line);$('#copy_iframe_backup .copy-btn').attr('data-clipboard-text',line);var line=file.images;$('#copy_images input').val(line);$('#copy_images .copy-btn').attr('data-clipboard-text',line);var line=file.link_backup;$('#copy_backup input').val(line);$('#copy_backup .copy-btn').attr('data-clipboard-text',line);var line=file.m3u8link;$('#copy_m3u8 input').val(line);$('#copy_m3u8 .copy-btn').attr('data-clipboard-text',line)}
@@ -554,7 +590,15 @@ $(".deleted_folder_selected").on('click', function(){
 		}, function(index) {
 		    layer.close(index);
 		});
-   
+})
+$(".edit_folder_a_button").on('click', function(){
+    console.log(123);
+    url = '<?=links('folder','save', ":id")?>';
+    
+    url = url.replace(':id', $(this).attr('data-id'));
+    console.log(url);
+    $('#folder_name_add_folder').val($(this).attr('data-value'));
+    $(".form-add-folder").prop('action', url);
 })
 </script>
 </body>

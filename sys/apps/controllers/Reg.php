@@ -56,7 +56,7 @@ class Reg extends CI_Controller {
                 if(Web_Reg == 0){
                         // Send email verify
                         $this->load->library('email');
-                        $this->email->from($this->email->smtp_user, 'Admin');
+                        $this->email->from('admin@helvid.com', 'Helvid.com');
                         $this->email->to($email);
                         $this->email->subject('Confirm email');
                         $this->email->message(sprintf('Please click the following link to verify your account:

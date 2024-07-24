@@ -36,7 +36,7 @@ class Forgot extends CI_Controller {
         // send email
         $this->load->library('email');
 
-        $this->email->from($this->email->smtp_user, 'Admin');
+        $this->email->from('admin@helvid.com', 'Helvid.com');
         $this->email->to($email);
         $this->email->subject('Reset password');
         $this->email->message(sprintf('Your new password: %s', $newPassword));

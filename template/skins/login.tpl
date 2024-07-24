@@ -105,7 +105,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-input-block username-container">
-                            <input type="text" name="name" id="nameField" class="username" placeholder="Username" autocomplete="off" />
+                            <input type="text" name="name" id="nameField" class="username username_class_input" placeholder="Username" autocomplete="off" />
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -131,6 +131,9 @@
                             <input type="text" name="otp" class="password" id="otpField"
                                 placeholder="Otp" oncontextmenu="return false" disabled=""/>
                         </div>
+                    </div>
+                    <div class="layui-input-block resend-otp-div d-none">
+                        <button type="button" class="opacity resend-otp" >Resend OTP</button>
                     </div>
                     <!-- Display secure code (old version)
                     <div class="layui-form-item">
@@ -164,6 +167,36 @@
     <script>document.getElementById("loginForm").addEventListener("keyup", function (event) { if (event.key === "Enter") { event.preventDefault(); document.getElementById("submit").click() } });</script>
     <script>function togglePasswordVisibility() { var passwordField = document.getElementById("passwordField"); var eyeIcon = document.getElementById("eyeIcon"); if (passwordField.type === "password") { passwordField.type = "text"; eyeIcon.src = "/packs/assets/img/eye-slash-icon.png"; eyeIcon.alt = "Hide Password" } else { passwordField.type = "password"; eyeIcon.src = "/packs/assets/img/eye-icon.png"; eyeIcon.alt = "Show Password" } }</script>
     <script>document.getElementById("passwordField").addEventListener("keyup", function (event) { var capsLockState = event.getModifierState && event.getModifierState("CapsLock"); var capsLockWarning = document.getElementById("capsLockWarning"); if (capsLockState) { capsLockWarning.style.display = "block" } else { capsLockWarning.style.display = "none" } });</script>
+    <script>
+    $(document).ready(function(){
+        $('.resend-otp').on('click', function(){
+        dataRequest = {
+            name: $('.username_class_input').val(),
+        }
+        $.ajax({
+		type: "get",
+		url: '/login/resend_otp',
+		data: dataRequest,
+		dataType: "json",
+		success: function(response) {
+		$('.resend-otp').prop('disabled', true);
+            layer.msg('<span style="color: #000000 !important;">Resend otp success!</span>', {
+                icon: 1,
+                time: 1500,
+                // Rest of the options
+            });
+            setTimeout(function() {
+				$('.resend-otp').prop('disabled', false);
+			}, 60000); 
+		},
+		error: function (data) {
+			
+		}
+		})
+    })
+    })
+    
+    </script>
 </body>
 
 </html>

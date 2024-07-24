@@ -156,7 +156,7 @@
             <div style="padding-top:5px;">
                 <h5>Add Folder</h5>
 					<div class="form-body">
-
+						<input type="hidden" class="folder_id" />
 						<div class="form-group">
 							<label class="control-label col-md-3">Folder Name
 								<span class="required"> * </span>

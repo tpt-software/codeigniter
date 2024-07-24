@@ -75,7 +75,7 @@ class Vod extends CI_Controller {
    $sBy = 'desc';
   }
 
-	$data['vod'] = $this->csdb->get_select('vod','*',$where, $sField . ' ' . $sBy, $limit,$like);
+	$data['vod'] = $this->csdb->get_select('vod','*, "video" AS type',$where, $sField . ' ' . $sBy, $limit,$like);
 	//$data['vod'] = $this->csdb->get_select('vod','*',$where,'addtime DESC',$limit,$like);
 	$base_url = site_url('vod')."?cid=".$cid."&fid=".$fid."&zt=".$zt."&vip=".$vip."&zd=".$zd."&key=".urlencode($key)."&kstime=".$kstime."&jstime=".$jstime."&page=";
 	$data['page_data'] = page_data($total,$page,$pagejs); //Get the pagination class

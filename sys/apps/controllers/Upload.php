@@ -112,6 +112,7 @@ class Upload extends CI_Controller
 		$key = sys_auth(json_encode($str), 0, $apikey);
 
 		$data['key'] = $key;
+		$data['folders'] = $this->csdb->get_select('folder', '*', array('user_id' => $user->id), 'id ASC', 30);
 		$this->load->view('head.tpl', $data);
 		$this->load->view('upload.tpl');
 		$this->load->view('bottom.tpl');

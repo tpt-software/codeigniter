@@ -84,10 +84,15 @@ $khoa = "zino_deptrai";
                                                     <form class="layui-form" action="<?=site_url('vod/delAll')?>" method="post">
                                                     <table class="table table-striped table-hover table-bordered reponse-table">
 													<div class="more_func">
+
 													   <div class="pull-right">
-                                                         <a class="btn btn-sm btn-default custom-delete-color" lay-submit lay-filter="del_pl"><i class="fa fa-remove" ></i> Delete selected</a>
+                                                         <a class="btn  btn-default custom-delete-color" lay-submit lay-filter="del_pl"><i class="fa fa-remove" ></i> Delete selected video</a>
+                                                         <a class="btn btn-default custom-delete-color deleted_folder_selected" ><i class="fa fa-remove" ></i> Delete selected folder</a>
 													   </div>
-														 <a class="btn btn-sm btn-default" style="background: #03a9f4; color: #fff;"><i class="fa fa-bars"></i> Export link selected</a>
+														 <a class="btn btn-sm btn-default" style="background: #03a9f4; color: #fff;" onclick="handleLinkChoose()"><i class="fa fa-bars"></i> Export link selected</a>
+                                                      <?php if(isset($back)): ?>
+                                                            <a class="btn btn-sm btn-default custom-link-color" href="<?= $back ?>"><i class="fa fa-back"></i> Back</a>
+                                                        <?php endif;    ?>
                                                     </div>
 													<br>
                                                         <thead>
@@ -120,7 +125,8 @@ $khoa = "zino_deptrai";
                                                                         </span> 
                                                                     <a>
                                                                 </th> 
-																<th> Durations </th>																
+																<th> Durations </th>
+                                                                <th>Type </th>															
                                                                 <th> 
                                                                     <a class="sortViews th-header" href="javascript:void(0)" data-value="<?php echo $sBy; ?>" data-link="<?php echo links('vod', 'index', $op, $cid); ?>">
                                                                         <span>Category &nbsp</span>
@@ -254,8 +260,14 @@ $khoa = "zino_deptrai";
                                                                     <i class="fa fa-search"></i> Preview
                                                                 </a>';
                                                                 $capacity = formatsize($row->size);
+                                                                $capacity = '<span class="label label-info">'.$capacity.'</span>';
                                                                 $duration = formattime((int)$row->duration,1);
+                                                                $duration = '<span class="label label-info">'.$duration.'</span></td>';
+                                                                $tab_blank = 'target="_blank"';
+                                                                $type_folder_id = '';
                                                             }else{
+                                                                $type_folder_id = 'folder_class_select';
+                                                                $zt = '--';
                                                                 $icon = '<i class="fa fa-folder fa-2" style="color: #FFD43B;font-size: 19px;"></i>';
                                                                 $link = '/folder/index/'. $row->id;
                                                                 $linkEdit = links('folder','edit',$row->id);
@@ -266,6 +278,7 @@ $khoa = "zino_deptrai";
                                                                 $capacity = "--";
                                                                 $duration = '--';
                                                                 $visble_link_video = true;
+                                                                $tab_blank = '';
                                                             }
                                                             if( $visble_link_video == false){
                                                                 $link = 'javascript:;';
@@ -275,7 +288,7 @@ $khoa = "zino_deptrai";
                                                             <tr class="video-item">
 																<td>
 																<input name="id['.$row->id.']" 
-																lay-ignore class="xuan video-checkbox" 
+																lay-ignore class="xuan video-checkbox '.$type_folder_id.'" 
 																type="checkbox" 
 																value="'.$row->id.'"  
 																data-row="'.htmlspecialchars(json_encode($row)).'"      
@@ -284,9 +297,10 @@ $khoa = "zino_deptrai";
 																</td>
                                                                 <td>'.$thumbImg.'</td>
 																
-                                                                <td style="text-align: left;"><a href="'.$link.'" target="_blank" title="'.$row->name.'">'.$icon.$name.'</a></td>
-																<td><span class="label label-info">'.$capacity.'</span>
-																<td><span class="label label-info">'.$duration.'</span></td>
+                                                                <td style="text-align: left;"><a href="'.$link.'" '.$tab_blank.'  title="'.$row->name.'">'.$icon.$name.'</a></td>
+																<td>'.$capacity.'
+																<td>'.$duration.'</td>
+																<td>'.$row->type.'</td>
                                                                 <td>'.$cname.'</td>
 																<td>'.$row->hits.'</td> 
                                                                 <td id="zm_'.$row->id.'" class="text-primary" style="'.$color.'">'.$zt.'</td>
@@ -507,6 +521,41 @@ setInterval("get_zt()",5000);
                 console.log(123);
 
 });
+$(".deleted_folder_selected").on('click', function(){
+    layer.confirm('If you delete the Folder, all videos inside will be deleted and cannot be restored', {
+			title:'Delete prompt',
+		    btn: ['Delete', 'Cancel'], //Button
+		    shade:0.001
+		}, function(index) {
+         var checkedValues = $('.folder_class_select:checked').map(function() {
+            return this.value;
+        }).get();
+    console.log("checkedValues:", checkedValues)
+        dataRequest = {
+			folder_array_id: checkedValues,
+		}
+
+		$.ajax({
+		type: "post",
+		url: '/folder/delete_selected_folder',
+		data: dataRequest,
+		dataType: "json",
+		success: function(response) {
+			layer.msg(response.msg,{icon:1});
+					setTimeout(function(){
+						location.reload();
+					},1500);
+		},
+		error: function (data) {
+			
+		}
+		})
+       
+		}, function(index) {
+		    layer.close(index);
+		});
+   
+})
 </script>
 </body>
 </html>

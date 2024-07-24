@@ -16,22 +16,6 @@
                                         <!-- BEGIN FORM-->
                                         <form  action="<?=links('folder','save',$id)?>" class="layui-form form-horizontal" method="post" >
                                             <div class="form-body">
-                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Category Name
-                                                        <span class="required"> * </span>
-                                                    </label>
-                                                    <div class="col-md-6">
-                                                         <select name="category_id" class="form-control">
-                                                            <option value="0">Choose category name</option>
-                                                         <?php
-                                                                foreach ($class as $row) {
-                                                                    echo '<option value="' . $row->id . '"  ' . ($row->id == $category_id ? 'selected' : '') . ' >' . htmlspecialchars($row->name) . '</option>';
-                                                                }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Folder Name
                                                         <span class="required"> * </span>

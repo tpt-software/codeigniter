@@ -107,6 +107,7 @@ class Folder extends CI_Controller {
 			  ];
 		}
 		$data['servers'] = $servers;
+		$data['back'] = links('vod', 'index');
 
 		$this->load->view('head.tpl', $data);
 		$this->load->view('vod_my.tpl');
@@ -140,7 +141,6 @@ class Folder extends CI_Controller {
 	public function save($id = 0){
 		$id = (int)$id;
 		$data['name'] = $this->input->post('folder_name',true);
-		$data['category_id'] = (int)$this->input->post('category_id',true);
 		if(empty($data['name'])) getjson('Folder name cannot be empty');
 		if($id == 0){
 			$data['user_id'] = $this->cookie->get('user_id');
@@ -182,13 +182,21 @@ class Folder extends CI_Controller {
 
 	public function add_folder_ajax() {
 		$data['name'] = $this->input->get('folder_name',true);
-		$data['category_id'] = (int)$this->input->get('category_id',true);
 		if(empty($data['name'])) getjson('Folder name cannot be empty');
 		$data['user_id'] = $this->cookie->get('user_id');
 		$folder =  $this->csdb->get_insert('folder',$data);
 		$row = $this->csdb->get_row('folder','*',array('id'=>$folder));
 		$ok = ['status' => 'success', 'data' => $row];
 		getjson($ok, 1);
+	}
+
+	public function delete_selected_folder(){
+		$folder_array_id = $this->input->get_post('folder_array_id',[]);
+		
+		foreach ($folder_array_id as $folder_id) {
+			$this->db->delete('folder', array('id' => $folder_id));
+		}
+		getjson(array('msg'=>'delete folder selected success','url'=>links('vod')),1);
 	}
 
 }

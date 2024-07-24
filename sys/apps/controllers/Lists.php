@@ -104,7 +104,7 @@ class Lists extends CI_Controller {
 		if($page > $pagejs) $page = $pagejs;
 		$limit = array($per_page,$per_page*($page-1));
 		//Data
-        $data['vod'] = $this->csdb->get_select('vod','*',$where,'addtime DESC',$limit);
+        $data['vod'] = $this->csdb->get_select('vod','*, "video" AS type',$where,'addtime DESC',$limit);
         $data['pages'] = get_page($total,$pagejs,$page,'lists','vod',$cid);
 		$data['user'] = $user;
 		$data['cid'] = $cid;

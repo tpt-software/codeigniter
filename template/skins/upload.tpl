@@ -107,6 +107,13 @@
                                     </label>
                                 	<div class="col-md-6 folder_div">
                               			<button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button>
+										<div class="col-md-8">
+										<select id="folder_id_selected" name="folder_id" class="form-control" title="please select a private category...">
+											<?php foreach($folders as $folder_object): ?>
+												<option value="<?php echo $folder_object->id; ?>"><?php echo $folder_object->name; ?></option>
+											<?php endforeach; ?>
+										</select>
+                                		</div>
                                 	</div>
                             	</div>
 								<center><span>Currently we are supporting the <b><font color=red>mp4|ts|mkv|mov|avi</font></b> videos upload. If you get an error, please <b><font color=red>convert to MP4</font>, We suggest you use the software <a href="https://videoconverter.wondershare.com" target="_blank">videoconverter.wondershare.com</a> to convert and maintain the same video quality. Thank you for using the service!</b></span></center>
@@ -147,21 +154,6 @@
             <div style="padding-top:5px;">
                 <h5>Add Folder</h5>
 					<div class="form-body">
-						<div class="form-group">
-							<label class="control-label col-md-3">Category Name
-								<span class="required"> * </span>
-							</label>
-							<div class="col-md-6">
-									<select name="category_id" id="category_id_add_folder" class="form-control">
-									<option value="0">Choose category name</option>
-									<?php
-										foreach ($class as $row) {
-											echo '<option value="' . $row->id . '"  ' . ($row->id == $category_id ? 'selected' : '') . ' >' . htmlspecialchars($row->name) . '</option>';
-										}
-									?>
-								</select>
-							</div>
-						</div>
 
 						<div class="form-group">
 							<label class="control-label col-md-3">Folder Name
@@ -329,7 +321,10 @@ $('#ctlBtn').click(function(event) {
 		var successMessage = 'Uploaded successfully, has been added to the transcoding queue <i class="fa fa-check" aria-hidden="true"></i>';
 			$('#' + file.id).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: #080; font-size: 13px;  font-style: italic;">' + successMessage + '</span>');
 			$.get(zmurl+'?id='+json.did);
-		$.get('/upload/update_folder_id'+'?id='+json.did + "&folder_id=" + $('#folder_id_selected:checked').val());
+			if( $('#folder_id_selected').val()){
+					$.get('/upload/update_folder_id'+'?id='+json.did + "&folder_id=" + $('#folder_id_selected').val());
+			}
+	
 		}else{
 			$( '#'+file.id ).find('p.state').html('<span data-file-id="'+file.id+'" class="clear-completed" style="color: red; font-size: 13px;  font-style: italic;">Upload video successfully, please wait for video transcoding: '+json.msg+'</span>');
 		}
@@ -446,7 +441,7 @@ function formatSize(size) {
 		chunkSize: 2000000, 
 		retryChunks: true, 
 		retryChunksLimit: 1, 
-		maxFiles: 1,
+		maxFiles: 10,
 		previewsContainer: false,
 		init: function() {
 			this.folderName = ''
@@ -466,48 +461,14 @@ function formatSize(size) {
 		}
 		uploader.addFile(file);
 	});
-	$('.radio_category').on('change', function (){
-		$.ajax({
-		type: "get",
-		url: '/upload/get_folders',
-		data: {
-			category_id: $(this).val(),
-		},
-		dataType: "json",
-		success: function(response) {
-			
-			console.log(response.data);
-			data = response.data;
-			folder_html = '<button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button>';
-
-			for(let folder of data){
-				folder_html +=`
-				<div class="input-group" id="copy_iframe_backup">
-					<input type="radio" class="video-checkbox" title="move to" id="folder_id_selected" name="folder_id" value="${folder.id}">
-					<i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
-					<span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">${folder.name}</span>
-				</div>`;
-			}
-			$('.folder_div').html(folder_html);
-		},
-		error: function (data) {
-			
-		}
-		})
-	})
 	$('.add_folder_button').on('click', function (){
-		category_id = $("#category_id_add_folder").val();
 		folder_id = $('#folder_name_add_folder').val();
-		if(category_id == 0){
-			layer.msg('category name cannot empty',{icon:2});
-			return false;
-		} 
+		
 		if(folder_id == 0){
 			layer.msg('folder name cannot empty',{icon:2});
 			return false;
 		}
 		dataRequest = {
-			category_id: category_id,
 			folder_name: folder_id,
 		}
 
@@ -518,14 +479,10 @@ function formatSize(size) {
 		dataType: "json",
 		success: function(response) {
 			folder = response.data;
-			folder_html = '';
-			folder_html +=`
-				<div class="input-group" id="copy_iframe_backup">
-					<input type="radio" class="video-checkbox" title="move to" name="folder_id" id="folder_id_selected" value="${folder.id}">
-					<i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
-					<span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">${folder.name}</span>
-				</div>`;
-				$('.folder_div').append(folder_html);
+			folder_html =`<option value="${folder.id}" selected>${folder.name}</option>`;
+			console.log("folder_html",folder_html);
+				$('#folder_id_selected').append(folder_html);
+				$('#folder_id_selected').val(folder.id);
 		},
 		error: function (data) {
 			

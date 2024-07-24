@@ -33,7 +33,8 @@ class Vod extends CI_Controller
             if ($cid > 0){
                   $where['cid'] = $cid;
             }
-            $where = array_merge($where, array('folder_id' => null));
+            $where['(folder_id = 0 OR folder_id IS NULL)'] = null; 
+           
 
             //Quantity per page
             $per_page = 100;

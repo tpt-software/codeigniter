@@ -300,7 +300,7 @@ $khoa = "zino_deptrai";
                                                                 <td style="text-align: left;"><a href="'.$link.'" '.$tab_blank.'  title="'.$row->name.'">'.$icon.$name.'</a></td>
 																<td>'.$capacity.'
 																<td>'.$duration.'</td>
-																<td>'.$row->type.'</td>
+																<td>'.ucfirst($row->type).'</td>
                                                                 <td>'.$cname.'</td>
 																<td>'.$row->hits.'</td> 
                                                                 <td id="zm_'.$row->id.'" class="text-primary" style="'.$color.'">'.$zt.'</td>

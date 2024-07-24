@@ -22,6 +22,9 @@
 	.file-drag{
 		width: 100%;
 	}
+#upload_box {
+    margin-top: 43px;
+}
 </style>
  </head>
 <div class="page-content-wrapper">
@@ -109,6 +112,7 @@
                               			<button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button>
 										<div class="col-md-8">
 										<select id="folder_id_selected" name="folder_id" class="form-control" title="please select a private category...">
+											<option value="">--</option>
 											<?php foreach($folders as $folder_object): ?>
 												<option value="<?php echo $folder_object->id; ?>"><?php echo $folder_object->name; ?></option>
 											<?php endforeach; ?>
@@ -118,16 +122,14 @@
                             	</div>
 								<center><span>Currently we are supporting the <b><font color=red>mp4|ts|mkv|mov|avi</font></b> videos upload. If you get an error, please <b><font color=red>convert to MP4</font>, We suggest you use the software <a href="https://videoconverter.wondershare.com" target="_blank">videoconverter.wondershare.com</a> to convert and maintain the same video quality. Thank you for using the service!</b></span></center>
 								<br>
-								<p class="btn btn-sm btn-default" style="background: #d70466; color: #fff;" onclick="handleRetryAll()"><i class="fa fa-refresh"></i> Retry all</p> 
-								<p class="btn btn-sm btn-default" style="background: #25b09b; color: #fff;" onclick="handleClearCompleted()"><i class="fa fa-times"></i> Clear completed</p> 
+								<div id="ctlBtn">Upload</div>
+								<div class="pull-right">
+									<p class="btn btn-sm btn-default" style="background: #d70466; color: #fff;" onclick="handleRetryAll()"><i class="fa fa-refresh"></i> Retry all</p> 
+									<p class="btn btn-sm btn-default" style="background: #25b09b; color: #fff;" onclick="handleClearCompleted()"><i class="fa fa-times"></i> Clear completed</p> 
+								</div>
 								<div class="form-group" style="max-width: 1200px;margin: 0 auto;">
 									<div id="upload_box">
 										<div id="uploader" class="wu-example">
-										    <!--Used to store file information-->
-										    <div class="btns">
-										        <div id="picker">Select</div>
-										        <div id="ctlBtn">Upload</div>
-										    </div>
 											<form class="dropzone" id="dropzoneForm">
 											</form>
 										    <div id="thelist"></div>

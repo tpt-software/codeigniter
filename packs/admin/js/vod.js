@@ -40,7 +40,7 @@ function openModal(data) {
             "<tr>" +
             `<td>${item.name ?? "--"}</td>` +
             `<td>${item.size ?formatBytes(item.size) : "--"}</td>` +
-            `<td>${item.type ?? "--"}</td>` +
+            `<td>${item.type ? item.type.replace(/^\w/, c => c.toUpperCase()) : "--"}</td>` +
             `<td>${item.cname  ?? "--"}</td>` +
             `<td>${item.hits  ?? "--"}</td>` +
             `<td>${item.zt? (item.zt === 2 ? "Transcoded" : "Transcoding fail") : '--'}</td>` +

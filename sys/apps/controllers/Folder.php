@@ -109,6 +109,7 @@ class Folder extends CI_Controller {
 		$data['servers'] = $servers;
 		$data['back'] = links('vod', 'index');
 		$data['folders'] = $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id), 'created_at DESC', $limit);
+		$data['folder_list'] = $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id), 'created_at DESC');
 		$data['type_page'] = 'folder';
 		$this->load->view('head.tpl', $data);
 		$this->load->view('vod_my.tpl');

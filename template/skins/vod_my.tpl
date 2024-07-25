@@ -417,7 +417,7 @@ $khoa = "zino_deptrai";
                             <span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">main folder</span>
                 <?php endif; ?>
                 <?php
-                    foreach($folders as $folder){
+                    foreach($folder_list as $folder){
                         echo'
 				        <div class="input-group" id="copy_iframe_backup">
                             <input type="radio" class="video-checkbox" title="move to" name="folder_id" value="'.$folder->id.'">

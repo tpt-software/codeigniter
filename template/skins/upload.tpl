@@ -481,13 +481,6 @@ function formatSize(size) {
 			return false;
 		}
 
-		if (folder_id.length > 100) {
-			layer.msg('you have exceeded the character limit.',{icon:2});
-			$(".add_folder_button").prop('disabled', true);
-			return false;
-    	}else{
-			$(".add_folder_button").prop('disabled', false);
-		}
 		dataRequest = {
 			folder_name: folder_id,
 		}

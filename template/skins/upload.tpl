@@ -463,12 +463,30 @@ function formatSize(size) {
 		}
 		uploader.addFile(file);
 	});
+	$('#folder_name_add_folder').on('keyup', function(){
+		folder_id = $('#folder_name_add_folder').val();
+		if (folder_id.length > 100) {
+			layer.msg('you have exceeded the character limit.',{icon:2});
+			$(".add_folder_button").prop('disabled', true);
+			return false;
+    	}else{
+			$(".add_folder_button").prop('disabled', false);
+		}
+	})
 	$('.add_folder_button').on('click', function (){
 		folder_id = $('#folder_name_add_folder').val();
 		
 		if(folder_id == 0){
 			layer.msg('folder name cannot empty',{icon:2});
 			return false;
+		}
+
+		if (folder_id.length > 100) {
+			layer.msg('you have exceeded the character limit.',{icon:2});
+			$(".add_folder_button").prop('disabled', true);
+			return false;
+    	}else{
+			$(".add_folder_button").prop('disabled', false);
 		}
 		dataRequest = {
 			folder_name: folder_id,

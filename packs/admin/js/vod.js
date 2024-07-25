@@ -35,7 +35,6 @@ function openModal(data) {
       let tableHTML = `<table id="export-excel" class='layui-table'><thead><tr>${th}</tr></thead><tbody>`;
 
       data.forEach(function (item) {
-         console.log(item.addtime);
          tableHTML +=
             "<tr>" +
             `<td>${item.name ?? "--"}</td>` +
@@ -43,9 +42,9 @@ function openModal(data) {
             `<td>${item.type ? item.type.replace(/^\w/, c => c.toUpperCase()) : "--"}</td>` +
             `<td>${item.cname  ?? "--"}</td>` +
             `<td>${item.hits  ?? "--"}</td>` +
-            `<td>${item.zt? (item.zt === 2 ? "Transcoded" : "Transcoding fail") : '--'}</td>` +
+            `<td>${item.zt? (+item.zt === 2 ? "Transcoded" : "Transcoding fail") : '--'}</td>` +
             `<td>${ ( item.addtime ? formatDate(item.addtime).toLocaleString().slice(0, 19).replace("T", " ") : "--")}</td>` +
-            `<td>${item.vid ? 'https://14412882.net/play/index/' : '--'}</td>` +
+            `<td>${item.vid ? 'https://14412882.net/play/index/' + item.vid : '--'}</td>` +
             `<td>${item.vid ? escapeHTML(
                `<iframe width="100%" height="100%" src="https://14412882.net/play/index/${item.vid}" frameborder="0" allowfullscreen></iframe>`
             ) : '--'}</td>` +

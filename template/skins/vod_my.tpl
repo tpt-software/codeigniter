@@ -600,6 +600,17 @@ $(".edit_folder_a_button").on('click', function(){
     $('#folder_name_add_folder').val($(this).attr('data-value'));
     $(".form-add-folder").prop('action', url);
 })
+$("#folder_name_add_folder").on('keyup', function(e) {
+    var folderName = $("#folder_name_add_folder").val();
+
+    if (folderName.length > 100) {
+      layer.msg('you have exceeded the character limit.',{icon:2});
+        $(".add_folder_button").prop('disabled', true);
+                    return false;
+    }
+    $(".add_folder_button").prop('disabled', false);
+
+});
 </script>
 </body>
 </html>

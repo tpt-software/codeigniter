@@ -436,7 +436,7 @@ function formatSize(size) {
 	var myDropzone = new Dropzone("#dropzoneForm", {
 		url: '/upload',
 		parallelUploads: 1,  
-		maxFilesize: 1024,   
+		maxFilesize: Infinity,   
 		chunking: true,    
 		forceChunking: true, 
 		parallelChunkUploads: true, 

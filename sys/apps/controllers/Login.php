@@ -81,10 +81,11 @@ class Login extends CI_Controller {
                     // send email
                     $this->load->library('email');
             
-                    $this->email->from($this->email->smtp_user, 'Admin');
+                    $this->email->from('admin@helvid.com', 'Helvid.com');
                     $this->email->to($row->email);
-                    $this->email->subject('OTP');
-                    $this->email->message(sprintf('Your OTP : %s', $otp));
+                    $this->email->set_mailtype("html");
+                    $this->email->subject('Send OTP');
+                    $this->email->message("Send OTP $otp");
                     $this->email->send();    
 
                     getjson('OTP has sent. Please check email',2);
@@ -164,5 +165,34 @@ class Login extends CI_Controller {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    public function resend_otp(){
+        
+        $name = $this->input->get('name', '');
+
+         // create otp
+         $row = $this->csdb->get_row('user','*',array('name'=>$name));
+         $otp = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
+                    
+         // save otp
+         $data = array(
+            'token' => $otp,
+         );
+
+        $this->db->update("user",$data ,array('name' => $name));
+
+        // send email
+        $this->load->library('email');
+
+        $this->email->from('admin@helvid.com', 'Helvid.com');
+        $this->email->to($row->email);
+        $this->email->set_mailtype("html");
+        $this->email->subject('Send OTP');
+        $this->email->message("Send OTP $otp");
+        $this->email->send();
+
+
+        getjson('OTP has sent. Please check email',2);
     }
 }

@@ -32,6 +32,10 @@ layui.use(['element','form','layer'], function(){
             layer.msg(data.msg, { icon: 1 });
 			document.getElementById('otpDiv').classList.remove('d-none');
     		document.getElementById('otpField').disabled = false;
+			setTimeout(function() {
+				$('.resend-otp-div').removeClass('d-none');
+			}, 60000); 
+			
         }else {
             layer.msg(data.msg, { icon: 2 });
         }

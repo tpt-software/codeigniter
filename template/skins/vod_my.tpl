@@ -198,28 +198,16 @@ $khoa = "zino_deptrai";
                                                                     $myname = '';
                                                                 }
                                                             }
-                                                            $visble_link_video = false;
                                                             if($row->zt == 1){
-                                                                $visble_link_video =false;
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding...</span>';
                                                             }elseif($row->zt == 2){
-                                                               $current_time = time(); 
-
-                                                                $difference = $current_time - (int) $row->addtime;
-
-                                                                if ($difference < 300) {
-                                                                    $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
-                                                                } else {
-                                                                    $visble_link_video =true;
-                                                                    $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
-                                                                }
+                                                               
+                                                                $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
                                                             }elseif($row->zt == 3){
-                                                                $visble_link_video =false;
                                                                 $color = 'color:red;';
                                                                 $zt = '<i class="fa fa-window-close-o"> Transcoding failed</i>';
                                                             }else{
-                                                                $visble_link_video =false;
                                                                 $color = 'color:#f90;';
                                                                 $zt = '<i class="fa fa-retweet"></i> To be transcoded';
                                                             }
@@ -277,11 +265,7 @@ $khoa = "zino_deptrai";
                                                                 $editVideo = '';
                                                                 $capacity = "--";
                                                                 $duration = '--';
-                                                                $visble_link_video = true;
                                                                 $tab_blank = '';
-                                                            }
-                                                            if( $visble_link_video == false){
-                                                                $link = 'javascript:;';
                                                             }
                                                       
 															$html = '
@@ -526,13 +510,7 @@ function get_zt() {
                 if (d[i].zt == 1) {
                     $("#zm_" + value.id).html('<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>');
                 } else if (value.zt == 2) {
-                    let currentTime = Math.floor(Date.now() / 1000);
-                    let difference = currentTime - parseInt(value.addtime);
-                    if (difference < 300) {
-                        $("#zm_" + value.id).html('<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>');
-                    } else {
-                       $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
-                    }
+                    $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
                 } else if (value.zt == 3) {
                     $("#zm_" + value.id).html('<font color=red>Transcoding failed</font>');
                 }

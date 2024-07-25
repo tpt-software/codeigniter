@@ -74,7 +74,7 @@ $khoa = "zino_deptrai";
 										<div style="text-align: right;">
                                         
 										<div>
-                                        <span><button  data-toggle="modal" data-target="#modal-add-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Add Folder</button></span>
+                                        <span><button  data-toggle="modal" data-target="#modal-add-folder"  class="btn btn-sm btn-default custom-link-color add-folder-a-click">Add Folder</button></span>
                                         <span><button  data-toggle="modal" data-target="#modal-move-folder"  class="btn btn-sm btn-default custom-link-color move-folder-a-click">Move Folder</button></span>
                                         <span><a href="<?=links('upload')?>" class="btn btn-sm btn-default custom-link-color">Upload Video</a></span>
                                         </div></div>
@@ -411,6 +411,11 @@ $khoa = "zino_deptrai";
             <div style="padding-top:5px;">
                 <h5>Player address</h5>
                 <input type="hidden" name="video_id" id="video_id_array">
+                <?php if(isset($type_page)): ?>
+                    <input type="radio" class="video-checkbox" title="move to" name="folder_id" value="-1">
+                            <i class="fa fa-folder fa-2" style="color: #FFD43B;margin-left: 10px;" aria-hidden="true"></i>
+                            <span class="copy-btn" data-clipboard-text="" style="margin-left: 5px;">main folder</span>
+                <?php endif; ?>
                 <?php
                     foreach($folders as $folder){
                         echo'

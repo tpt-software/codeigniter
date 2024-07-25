@@ -108,7 +108,8 @@ class Folder extends CI_Controller {
 		}
 		$data['servers'] = $servers;
 		$data['back'] = links('vod', 'index');
-
+		$data['folders'] = $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id), 'created_at DESC', $limit);
+		$data['type_page'] = 'folder';
 		$this->load->view('head.tpl', $data);
 		$this->load->view('vod_my.tpl');
 		$this->load->view('bottom.tpl');
@@ -156,11 +157,15 @@ class Folder extends CI_Controller {
 	public function move() {
 		$video_id_string = $this->input->post('video_id',true);
 		$folder_id =  $this->input->post('folder_id',true);
+	
 		if(!$video_id_string){
 			getjson('video id cannot be empty');
 		}
 		if(!$folder_id){
 			getjson('folder id cannot be empty');
+		}
+		if($folder_id == -1){
+			$folder_id = 0;
 		}
 		$video_id_array = explode(",", $video_id_string);
 		$data['folder_id'] = (int) $folder_id;

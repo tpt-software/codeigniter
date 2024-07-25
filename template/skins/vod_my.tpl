@@ -249,7 +249,7 @@ $khoa = "zino_deptrai";
                                                             if($row->type == 'video'){
                                                                 $icon = '<i class="fa fa-video-camera" aria-hidden="true" style="color: #FFD43B;font-size: 19px;"></i>';
                                                                 $link = links('play','index',$row->vid);
-                                                                $linkEdit = links('vod','edit',$row->vid);
+                                                                $linkEdit = links('vod','edit',$row->id);
                                                                 $linkDel = links('vod','del',$row->id);
                                                                 $thumbImg =  $thumbImg;
                                                                 $href = "javascript:getajax('".$linkDel."', 'del')";
@@ -307,7 +307,7 @@ $khoa = "zino_deptrai";
                                                                 <td>'.date('d-m-Y | H:i:s',$row->addtime).'</td>
                                                                 <td>'.$editVideo.'
 
-                                                                <a href="'.$linkEdit.'" data-value="'.$row->name.'" data-id="'.$row->id.'" '.($row->type ='folder' ? 'data-toggle="modal" data-target="#modal-add-folder"' : "").' class="btn btn-sm btn-default custom-edit-color '.($row->type  == 'video' ? '' : 'edit_folder_a_button').'">
+                                                                <a href="'.$linkEdit.'" data-value="'.$row->name.'" data-id="'.$row->id.'" '.($row->type =='folder' ? 'data-toggle="modal" data-target="#modal-add-folder"' : "").' class="btn btn-sm btn-default custom-edit-color '.($row->type  == 'video' ? '' : 'edit_folder_a_button').'">
                                                                     <i class="fa fa-edit"></i> Edit</a>
                                                                 <a  href="'.$href.';" class="btn btn-sm btn-default custom-delete-color">
                                                                     <i class="fa fa-remove"></i> Delete 

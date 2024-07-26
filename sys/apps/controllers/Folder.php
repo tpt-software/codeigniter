@@ -79,7 +79,7 @@ class Folder extends CI_Controller {
 		$data['vod'] = $this->csdb->get_select('vod', '*, "video" AS type', $where, $sField . ' ' . $sByQuery, $limit);
 		//$data['vod'] = $this->csdb->get_select('vod','*',$where,'addtime DESC',$limit);
 		$ops = $cid > 0 ? $op . '/' . $cid : $op;
-		$data['pages'] = get_page($total, $pagejs, $page, 'vod', 'index', $ops);
+		$data['pages'] = get_page($total, $pagejs, $page, 'folder', 'index', $ops);
 
 		$classArr = $this->csdb->get_select('class', '*', array(), 'id ASC', 30);
 		$class = [];

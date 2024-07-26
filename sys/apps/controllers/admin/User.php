@@ -107,7 +107,8 @@ class User extends CI_Controller {
 	
 		$data['user'] = $this->csdb->get_sql($sql);
 
-        $base_url = site_url('user')."?zt=".$zt."&vip=".$vip."&zd=".$zd."&key=".urlencode($key)."&kstime=".$kstime."&jstime=".$jstime."&page=";
+        $base_url = site_url('user')."?zt=".$zt."&vip=".$vip."&zd=".$zd."&key=".urlencode($key ?$key : '')."&kstime=".$kstime."&jstime=".$jstime."&page=";
+		
         $data['page_data'] = page_data($total,$page,$pagejs); //Get the pagination class
         $data['page_list'] = admin_page($base_url,$page,$pagejs); //Get the pagination class
 

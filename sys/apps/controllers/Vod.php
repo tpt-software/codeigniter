@@ -82,6 +82,7 @@ class Vod extends CI_Controller
                   }
             }
             $data['folders'] = $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id), 'created_at DESC', $limit);
+            $data['folder_list'] = $this->csdb->get_select('folder', '*, "folder" AS type', array('user_id' => $user->id), 'created_at DESC');
             $data['vod'] = $this->csdb->get_select('vod', '*, "video" AS type', $where, $sField . ' ' . $sByQuery, $limit);
             $data['vod'] = array_merge($data['folders'], $data['vod']);
             //$data['vod'] = $this->csdb->get_select('vod','*',$where,'addtime DESC',$limit);

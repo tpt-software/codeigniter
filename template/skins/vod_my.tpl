@@ -278,6 +278,7 @@ $khoa = "zino_deptrai";
                                                             }
                                                             if( $visble_link_video == false){
                                                                 $link = 'javascript:;';
+                                                                $tab_blank = "";
                                                             }
                                                       
 															$html = '

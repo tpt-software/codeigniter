@@ -97,8 +97,10 @@
                                                                 $thumbImg = '<img class="lazy" src="'.m3u8_link($row->vid,$row->addtime,'pic',1,$server).'" style="height: 50px;width: 90px;">';
                                                             }
                                                             $link =links('play','index',$row->vid);
+                                                            $tab_blank = 'target="_blank"';
                                                             if( $visble_link_video == false){
                                                                 $link = 'javascript:;';
+                                                                $tab_blank = "";
                                                             }
                                                             echo '
                                                             <tr>
@@ -106,7 +108,7 @@
 
 																<td>'.$thumbImg.'</td>
 
-                                                                <td style="text-align: left;"><a href="'.$link.'" target="_blank" title="'.$row->name.'">'.(mb_strlen($row->name) > 30 ? mb_substr($row->name, 0, 30) . '...' : $row->name).'</a></td>
+                                                                <td style="text-align: left;"><a href="'.$link.'"  '.$tab_blank.'  title="'.$row->name.'">'.(mb_strlen($row->name) > 30 ? mb_substr($row->name, 0, 30) . '...' : $row->name).'</a></td>
 																<td><span class="label label-info">'.formatsize($row->size).'</span>
 																<td><span class="label label-info">'.formattime($row->duration,1).'</span>
                                                                 <td>'.$cname.'</td>

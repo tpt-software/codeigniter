@@ -243,7 +243,7 @@ class Vod extends CI_Controller {
  //Get transcoding status
  public function ajax(){
   $ids = $this->input->post('did',true);
-  $res = $this->csdb->get_select('vod','id,zt',array('id'=>$ids),'id DESC',20);
+  $res = $this->csdb->get_select('vod','*',array('id'=>$ids),'id DESC',20);
   echo json_encode($res);
  }
 }

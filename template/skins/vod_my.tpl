@@ -172,6 +172,7 @@ $khoa = "zino_deptrai";
                                                         if(empty($vod)) echo '<tr><td align="center" height="50" colspan="7">No related records</td></tr>';
                                                         $arr = array();
 														foreach($vod as $k=>$row){
+                                                            $visble_link_video = false;
 															if($row->fid > 0){
                                                                 if (array_key_exists($row->fid, $servers)) {
                                                                     $server = $servers[$row->fid];
@@ -202,8 +203,15 @@ $khoa = "zino_deptrai";
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding...</span>';
                                                             }elseif($row->zt == 2){
-                                                               
-                                                                $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
+                                                                $current_time = time(); 
+                                                                $difference = $current_time - (int) $row->addtime;
+                                                                if ($difference < 300) {
+                                                                    $visble_link_video = false;
+                                                                    $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
+                                                                } else {
+                                                                    $visble_link_video = true;
+                                                                    $zt = '<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>';
+                                                                }
                                                             }elseif($row->zt == 3){
                                                                 $color = 'color:red;';
                                                                 $zt = '<i class="fa fa-window-close-o"> Transcoding failed</i>';
@@ -266,6 +274,11 @@ $khoa = "zino_deptrai";
                                                                 $capacity = "--";
                                                                 $duration = '--';
                                                                 $tab_blank = '';
+                                                                $visble_link_video = true;
+                                                            }
+                                                            if( $visble_link_video == false){
+                                                                $link = 'javascript:;';
+                                                                $tab_blank = "";
                                                             }
                                                       
 															$html = '
@@ -515,7 +528,13 @@ function get_zt() {
                 if (d[i].zt == 1) {
                     $("#zm_" + value.id).html('<font color=#1e9fff><span class="spinner-icon"><i class="fa fa-spinner fa-spin"></i>Transcoding...</span></font>');
                 } else if (value.zt == 2) {
-                    $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
+                   let currentTime = Math.floor(Date.now() / 1000);
+                    let difference = currentTime - parseInt(value.addtime);
+                    if (difference < 300) {
+                        $("#zm_" + value.id).html('<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>');
+                    } else {
+                       $("#zm_" + value.id).html('<font color=green><i class="fa fa-check-square-o"></i> Transcoded</font>');
+                    }
                 } else if (value.zt == 3) {
                     $("#zm_" + value.id).html('<font color=red>Transcoding failed</font>');
                 }
@@ -537,8 +556,6 @@ $(document).ready(function() {
    })
 
 setInterval("get_zt()",5000);
-                console.log(123);
-
 });
 $(".deleted_folder_selected").on('click', function(){
     layer.confirm('If you delete the Folder, all videos inside will be deleted and cannot be restored', {

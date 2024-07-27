@@ -47,6 +47,8 @@
 														$arr = array();
                                                         if(empty($vod)) echo '<tr><td align="center" height="50" colspan="7">No related records</td></tr>';
                                                         foreach($vod as $k=>$row){
+                                                            $visble_link_video = false;
+
 															if($row->fid > 0){
 																$server = $this->csdb->get_row_arr('server','m3u8dir,cdnurl',array('id'=>$row->fid));
 															}else{
@@ -58,10 +60,16 @@
                                                                 $color = '';
                                                                 $zt = '<span class="spinner-icon"><i class="fa fa-circle-o-notch fa-spin"></i> Transcoding';
                                                             }elseif($row->zt == 2){
-                                                               
+                                                                $current_time = time(); 
 
-                                                                $zt = '<i class="fa fa-check-square-o"></i> Transcoded';
+                                                                $difference = $current_time - (int) $row->addtime;
 
+                                                                if ($difference < 300) {
+                                                                    $zt = '<font color=orange><i class="fa fa-spinner fa-spin"></i> processing</font>';
+                                                                } else {
+                                                                    $visble_link_video = true;
+                                                                    $zt = '<i class="fa fa-check-square-o"></i> Transcoded';
+                                                                }
                                                             }elseif($row->zt == 3){
                                                                 
                                                                 $color = 'color:red;';
@@ -88,13 +96,19 @@
                                                                 }
                                                                 $thumbImg = '<img class="lazy" src="'.m3u8_link($row->vid,$row->addtime,'pic',1,$server).'" style="height: 50px;width: 90px;">';
                                                             }
+                                                            $link =links('play','index',$row->vid);
+                                                            $tab_blank = 'target="_blank"';
+                                                            if( $visble_link_video == false){
+                                                                $link = 'javascript:;';
+                                                                $tab_blank = "";
+                                                            }
                                                             echo '
                                                             <tr>
 																<td><input name="id['.$row->id.']" lay-ignore class="xuan" type="checkbox" value="'.$row->id.'" /></td>
 
 																<td>'.$thumbImg.'</td>
 
-                                                                <td style="text-align: left;"><a href="'.links('play','index',$row->vid).'" target="_blank" title="'.$row->name.'">'.(mb_strlen($row->name) > 30 ? mb_substr($row->name, 0, 30) . '...' : $row->name).'</a></td>
+                                                                <td style="text-align: left;"><a href="'.$link.'"  '.$tab_blank.'  title="'.$row->name.'">'.(mb_strlen($row->name) > 30 ? mb_substr($row->name, 0, 30) . '...' : $row->name).'</a></td>
 																<td><span class="label label-info">'.formatsize($row->size).'</span>
 																<td><span class="label label-info">'.formattime($row->duration,1).'</span>
                                                                 <td>'.$cname.'</td>
